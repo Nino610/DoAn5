@@ -4,7 +4,7 @@
         background: #ffffff;
         padding-bottom: 12vh;
     }
-
+    
     .p-inputtext {
         font-size: 1.2rem !important;
     }
@@ -56,24 +56,25 @@
         <br />
         <button style="margin-left: 50px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-plus"></i>Thêm</button>
         <br />
+        <input style="width: 800px;margin-top: 10px;margin-left: 100px;" class="form-control" type="text" [(ngModel)]="searchText" name="search" autocomplete="off" placeholder="&#61442; Tìm kiếm">
         <br/>
         <table class="table table-hover ">
             <thead style="text-align: center">
-                <td>Mã môn học</td>
-                <td>Mã bộ môn</td>
-                <td>Tên môn học</td>
-                <td>Số tín chỉ</td>
-                <td>Chức năng</td>
+                <td><b>Mã môn học</b></td>
+                <td><b>Mã bộ môn</b></td>
+                <td><b>Tên môn học</b></td>
+                <td><b>Số tín chỉ</b></td>
+                <td><b>Chức năng</b></td>
             </thead>
             <tbody>
-                <tr style="text-align: center" *ngFor="let sub of service.listSubjects ">
+                <tr style="text-align: center" *ngFor="let sub of service.listSubjects|filter:searchText ">
                     <td>{{ sub.subjectId }}</td>
                     <td>{{ sub.departmentId }}</td>
                     <td>{{ sub.subjectName }}</td>
                     <td>{{ sub.credit }}</td>
                     <td>
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-pencil"></i>Sửa</button>
-                        <button style="margin-left: 5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-eye"></i>Chi tiết</button>
+                        <button (click)="updateform(sub)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-pencil"></i>Sửa</button>
+                        <button style="margin-left: 5px;" type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-eye"></i>Chi tiết</button>
                     </td>
                 </tr>
             </tbody>
@@ -94,6 +95,7 @@
             </div>
             <div class="modal-body">
                 <form #form="ngForm" (submit)="onSubmit(form)" class="needs-validation" novalidate>
+                    <input type="hidden" name="subjectId" #subjectId="ngModel" [(ngModel)]="service.formData.subjectId">
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom01">Mã bộ môn: </label>

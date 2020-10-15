@@ -36,13 +36,30 @@ var ListSubjectComponent = /** @class */ (function () {
         };
     };
     ListSubjectComponent.prototype.onSubmit = function (form) {
-        this.insertRecord(form);
-        this.toastr.success('Thông báo', 'Thêm thành công');
+        if (form.value.subjectId == null)
+            this.insertRecord(form);
+        else
+            this.updateRecord(form);
+        this.toastr.success('Thông báo', 'Thao tác thành công');
     };
     ListSubjectComponent.prototype.insertRecord = function (form) {
         var _this = this;
         //console.log('ffffffff',form.value);
         this.service.postSubjects(form.value).subscribe(function (res) {
+            _this.resetForm(form);
+            _this.service.getSubjects();
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ListSubjectComponent.prototype.updateform = function (sub) {
+        this.service.formData = Object.assign({}, sub);
+    };
+    ListSubjectComponent.prototype.updateRecord = function (form) {
+        var _this = this;
+        //console.log('ffffffff',form.value);
+        this.service.putSubjects(form.value).subscribe(function (res) {
+            _this.toastr.success('Thông báo', 'Thao tác thành công');
             _this.resetForm(form);
             _this.service.getSubjects();
         }, function (err) {

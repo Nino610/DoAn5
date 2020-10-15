@@ -2,6 +2,15 @@
     font-size: 1.4rem !important;
 }
 
+.form-control::placeholder {
+    font-family: FontAwesome;
+}
+
+
+/* .form-control {
+    box-shadow: 0 10px 40px 0 blue;
+} */
+
 #toast-container>div {
     opacity: 1;
 }

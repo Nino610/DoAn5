@@ -71,6 +71,7 @@ var slider_2 = require("@angular/material/slider");
 var slide_toggle_1 = require("@angular/material/slide-toggle");
 var list_subject_component_1 = require("./list-subject/list-subject.component");
 var calendar_component_1 = require("./calendar/calendar.component");
+var ng2_search_filter_1 = require("ng2-search-filter");
 exports.mainRoutes = [
     {
         path: '',
@@ -131,6 +132,7 @@ var MainModule = /** @class */ (function () {
             ],
             imports: [
                 shared_module_1.SharedModule,
+                ng2_search_filter_1.Ng2SearchPipeModule,
                 common_1.CommonModule,
                 http_1.HttpClientModule,
                 table_1.TableModule,

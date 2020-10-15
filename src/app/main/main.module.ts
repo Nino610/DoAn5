@@ -63,7 +63,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ListSubjectComponent } from './list-subject/list-subject.component';
 import { CalendarComponent } from './calendar/calendar.component';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 export const mainRoutes: Routes = [
   {
     path: '',
@@ -118,6 +118,7 @@ export const mainRoutes: Routes = [
   ],
   imports: [
     SharedModule,
+    Ng2SearchPipeModule,
     CommonModule,
     HttpClientModule,
     TableModule,
