@@ -1,0 +1,141 @@
+<style>
+    .page-wrapper {
+        overflow: auto;
+        background: #ffffff;
+        padding-bottom: 12vh;
+    }
+
+    .p-inputtext {
+        font-size: 1.2rem !important;
+    }
+</style>
+<div class="page-wrapper">
+    <!-- MENU SIDEBAR-->
+
+    <!-- END MENU SIDEBAR-->
+
+    <!-- PAGE CONTAINER-->
+    <div class="page-container2">
+
+        <!-- BREADCRUMB-->
+        <section class="au-breadcrumb m-t-75">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="au-breadcrumb-content">
+                                <div class="au-breadcrumb-left">
+                                    <span class="au-breadcrumb-span">Bạn đang ở:</span>
+                                    <ul class="list-unstyled list-inline au-breadcrumb__list">
+                                        <li class="list-inline-item active">
+                                            <a href="#">Home</a>
+                                        </li>
+                                        <li class="list-inline-item seprate">
+                                            <span>/</span>
+                                        </li>
+                                        <li class="list-inline-item">Danh sách học phần</li>
+                                    </ul>
+                                </div>
+                                <div class="au-breadcrumb-right">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Học kỳ</mat-label>
+                                        <mat-select>
+                                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                {{food.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END BREADCRUMB-->
+        <br />
+        <button style="margin-left: 50px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-plus"></i>Thêm</button>
+        <br />
+        <br/>
+        <table class="table table-hover ">
+            <thead style="text-align: center">
+                <td>Mã môn học</td>
+                <td>Mã bộ môn</td>
+                <td>Tên môn học</td>
+                <td>Số tín chỉ</td>
+                <td>Chức năng</td>
+            </thead>
+            <tbody>
+                <tr style="text-align: center" *ngFor="let sub of service.listSubjects ">
+                    <td>{{ sub.subjectId }}</td>
+                    <td>{{ sub.departmentId }}</td>
+                    <td>{{ sub.subjectName }}</td>
+                    <td>{{ sub.credit }}</td>
+                    <td>
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-pencil"></i>Sửa</button>
+                        <button style="margin-left: 5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-eye"></i>Chi tiết</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p-confirmDialog [style]="{width: '450px'} "></p-confirmDialog>
+        <!-- END STATISTIC-->
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalLabel">Thông tin học phần</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <form #form="ngForm" (submit)="onSubmit(form)" class="needs-validation" novalidate>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom01">Mã bộ môn: </label>
+                            <!-- <select names="departmentId" class="mdb-select md-form">
+                              <option value="" disabled selected>Choose your option</option>
+                              <option value="1">Option 1</option>
+                              <option value="2">Option 2</option>
+                              <option value="3">Option 3</option>
+                            </select> -->
+                            <input name="departmentId" #departmentId="ngModel" [(ngModel)]="service.formData.departmentId" style="width: 150px;" class="form-control" placeholder="Mã bộ môn" required>
+                            <div class="invalid-feedback">
+                                Vui lòng điền dữ liệu!
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="validationCustom05">Mã môn học</label>
+                            <input name="subjectId" #subjectId="ngModel" [(ngModel)]="service.formData.subjectId" style="width: 150px;" class="form-control" placeholder="Mã môn học" required>
+                            <div class="invalid-feedback">
+                                Vui lòng điền dữ liệu!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom03">Tên môn học</label>
+                            <input name="subjectName" #subjectName="ngModel" [(ngModel)]="service.formData.subjectName" type="text" class="form-control" placeholder="Tên môn học" required>
+                            <div class="invalid-feedback">
+                                Vui lòng điền dữ liệu!
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="validationCustom04">Số tín chỉ</label>
+                            <input name="credit" #credit="ngModel" [(ngModel)]="service.formData.credit" type="text" class="form-control" placeholder="Số tín chỉ" required>
+                            <div class="invalid-feedback">
+                                Vui lòng điền dữ liệu!
+                            </div>
+                        </div>
+                    </div>
+                    <button [disabled]="form.invalid" class="btn btn-primary" type="submit">Xác nhận</button>
+                    <button style="float: right;" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
