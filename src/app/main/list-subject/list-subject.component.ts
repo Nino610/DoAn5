@@ -30,9 +30,9 @@ interface Food {
 })
 export class ListSubjectComponent implements OnInit {
   searchText;
-  list: any;
-  page: any;
-  pageSize: any;
+  data: Array<any>;
+  totalRecords: string;
+  page: number = 1;
   foods: Food[] = [
     { value: 'HK1-2018-2019', viewValue: 'Học kỳ 1 - Năm Học 2018-2019' },
     { value: 'HK2-2018-2019', viewValue: 'Học kỳ 2- Năm Học 2018-2019' },
@@ -47,7 +47,9 @@ export class ListSubjectComponent implements OnInit {
   submitted: boolean;
   Subjects: Subject[];
   Subject: Subject;
-  constructor(public service: ProductService, private toastr: ToastrService) {}
+  constructor(public service: ProductService, private toastr: ToastrService) {
+    this.data = new Array<any>();
+  }
 
   ngOnInit() {
     this.resetForm();

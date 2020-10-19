@@ -12,6 +12,7 @@ var ListSubjectComponent = /** @class */ (function () {
     function ListSubjectComponent(service, toastr) {
         this.service = service;
         this.toastr = toastr;
+        this.page = 1;
         this.foods = [
             { value: 'HK1-2018-2019', viewValue: 'Học kỳ 1 - Năm Học 2018-2019' },
             { value: 'HK2-2018-2019', viewValue: 'Học kỳ 2- Năm Học 2018-2019' },
@@ -20,6 +21,7 @@ var ListSubjectComponent = /** @class */ (function () {
             { value: 'HK1-2020-2021', viewValue: 'Học kỳ 1 - Năm Học 2020-2021' },
             { value: 'HK2-2020-2021', viewValue: 'Học kỳ 2 - Năm Học 2020-2021' },
         ];
+        this.data = new Array();
     }
     ListSubjectComponent.prototype.ngOnInit = function () {
         this.resetForm();

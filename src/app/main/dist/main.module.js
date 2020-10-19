@@ -23,6 +23,7 @@ var file_not_found_component_1 = require("../shared/file-not-found/file-not-foun
 var productservice_1 = require("../productservice");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/common/http");
+var ngx_pagination_1 = require("ngx-pagination");
 var table_1 = require("primeng/table");
 var toast_1 = require("primeng/toast");
 var calendar_1 = require("primeng/calendar");
@@ -62,6 +63,7 @@ var list_1 = require("@angular/material/list");
 var menu_1 = require("@angular/material/menu");
 var core_2 = require("@angular/material/core");
 var paginator_1 = require("@angular/material/paginator");
+var paginator_2 = require("primeng/paginator");
 var progress_bar_1 = require("@angular/material/progress-bar");
 var progress_spinner_1 = require("@angular/material/progress-spinner");
 var radio_1 = require("@angular/material/radio");
@@ -128,11 +130,12 @@ var MainModule = /** @class */ (function () {
                 main_component_1.MainComponent,
                 dashboard_component_1.DashboardComponent,
                 list_subject_component_1.ListSubjectComponent,
-                calendar_component_1.CalendarComponent
+                calendar_component_1.CalendarComponent,
             ],
             imports: [
                 shared_module_1.SharedModule,
                 ng2_search_filter_1.Ng2SearchPipeModule,
+                ngx_pagination_1.NgxPaginationModule,
                 common_1.CommonModule,
                 http_1.HttpClientModule,
                 table_1.TableModule,
@@ -173,6 +176,7 @@ var MainModule = /** @class */ (function () {
                 menu_1.MatMenuModule,
                 core_2.MatNativeDateModule,
                 paginator_1.MatPaginatorModule,
+                paginator_2.PaginatorModule,
                 progress_bar_1.MatProgressBarModule,
                 progress_spinner_1.MatProgressSpinnerModule,
                 radio_1.MatRadioModule,
@@ -181,7 +185,7 @@ var MainModule = /** @class */ (function () {
                 sidenav_1.MatSidenavModule,
                 slider_2.MatSliderModule,
                 slide_toggle_1.MatSlideToggleModule,
-                router_1.RouterModule.forChild(exports.mainRoutes)
+                router_1.RouterModule.forChild(exports.mainRoutes),
             ],
             //ToastModule.forRoot(),
             bootstrap: [main_component_1.MainComponent],

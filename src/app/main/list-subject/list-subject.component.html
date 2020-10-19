@@ -57,6 +57,7 @@
         <button style="margin-left: 50px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-plus"></i>Thêm</button>
         <br />
         <input style="width: 800px;margin-top: 10px;margin-left: 100px;" class="form-control" type="text" [(ngModel)]="searchText" name="search" autocomplete="off" placeholder="&#61442; Tìm kiếm">
+
         <br/>
         <table class="table table-hover ">
             <thead style="text-align: center">
@@ -67,7 +68,8 @@
                 <td><b>Chức năng</b></td>
             </thead>
             <tbody>
-                <tr style="text-align: center" *ngFor="let sub of service.listSubjects|filter:searchText ">
+                <tr style="text-align: center" *ngFor="let sub of service.listSubjects|filter:searchText | paginate:{id:'listing_pagination',
+                itemsPerPage:10, currentPage:page,totalItems:totalRecords} ">
                     <td>{{ sub.subjectId }}</td>
                     <td>{{ sub.departmentId }}</td>
                     <td>{{ sub.subjectName }}</td>
@@ -79,10 +81,13 @@
                 </tr>
             </tbody>
         </table>
-
         <p-confirmDialog [style]="{width: '450px'} "></p-confirmDialog>
+        <div style=" padding-left: 300px;">
+            <pagination-controls id="listing_pagination" maxSize="5" direclinks="true" (pageChange)="page=$event"></pagination-controls>
+        </div>
         <!-- END STATISTIC-->
     </div>
+
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

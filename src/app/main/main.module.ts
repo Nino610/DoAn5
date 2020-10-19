@@ -12,9 +12,9 @@ import { SharedModule } from '../shared/shared.module';
 import { UnauthorizedComponent } from '../shared/unauthorized/unauthorized.component';
 import { FileNotFoundComponent } from '../shared/file-not-found/file-not-found.component';
 import { ProductService } from '../productservice';
-import {PaginatorModule} from 'primeng/paginator';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
@@ -35,32 +35,33 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import {MatBadgeModule} from '@angular/material/badge';
-import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
-import {MatButtonModule} from '@angular/material/button';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatCardModule} from '@angular/material/card';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatListModule} from '@angular/material/list';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSelectModule} from '@angular/material/select';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatSliderModule} from '@angular/material/slider';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { PaginatorModule } from 'primeng/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ListSubjectComponent } from './list-subject/list-subject.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -114,11 +115,12 @@ export const mainRoutes: Routes = [
     MainComponent,
     DashboardComponent,
     ListSubjectComponent,
-    CalendarComponent
+    CalendarComponent,
   ],
   imports: [
     SharedModule,
     Ng2SearchPipeModule,
+    NgxPaginationModule,
     CommonModule,
     HttpClientModule,
     TableModule,
@@ -159,6 +161,7 @@ export const mainRoutes: Routes = [
     MatMenuModule,
     MatNativeDateModule,
     MatPaginatorModule,
+    PaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatRadioModule,
@@ -167,9 +170,10 @@ export const mainRoutes: Routes = [
     MatSidenavModule,
     MatSliderModule,
     MatSlideToggleModule,
-    RouterModule.forChild(mainRoutes)],
-    //ToastModule.forRoot(),
-    bootstrap: [MainComponent],
-    providers: [ProductService, MessageService, ConfirmationService],
+    RouterModule.forChild(mainRoutes),
+  ],
+  //ToastModule.forRoot(),
+  bootstrap: [MainComponent],
+  providers: [ProductService, MessageService, ConfirmationService],
 })
 export class MainModule {}
