@@ -4,7 +4,7 @@
         background: #ffffff;
         padding-bottom: 12vh;
     }
-    
+
     .p-inputtext {
         font-size: 1.2rem !important;
     }
@@ -55,6 +55,12 @@
         <!-- END BREADCRUMB-->
         <br />
         <button style="margin-left: 50px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-plus"></i>Thêm</button>
+        <select style="float:right" #luachon (change)="updateValue(luachon.value)">
+          <option selected value="3" >--Sắp xếp số lượng--</option>
+          <option value="5" >5</option>
+          <option value="8" >8</option>
+          <option value="10" >10</option>
+        </select>
         <br />
         <input style="width: 800px;margin-top: 10px;margin-left: 100px;" class="form-control" type="text" [(ngModel)]="searchText" name="search" autocomplete="off" placeholder="&#61442; Tìm kiếm">
 
@@ -69,7 +75,7 @@
             </thead>
             <tbody>
                 <tr style="text-align: center" *ngFor="let sub of service.listSubjects|filter:searchText | paginate:{id:'listing_pagination',
-                itemsPerPage:10, currentPage:page,totalItems:totalRecords} ">
+                 itemsPerPage: subsl, currentPage:page,totalItems:totalRecords} ">
                     <td>{{ sub.subjectId }}</td>
                     <td>{{ sub.departmentId }}</td>
                     <td>{{ sub.subjectName }}</td>

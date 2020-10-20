@@ -27,6 +27,10 @@ var ListSubjectComponent = /** @class */ (function () {
         this.resetForm();
         this.service.getSubjects();
     };
+    //lựa chọn số phần tử hiển thị trên trang
+    ListSubjectComponent.prototype.updateValue = function (value) {
+        this.subsl = value;
+    };
     ListSubjectComponent.prototype.resetForm = function (form) {
         if (form != null)
             form.resetForm();

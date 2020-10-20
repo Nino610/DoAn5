@@ -30,6 +30,8 @@ interface Food {
 })
 export class ListSubjectComponent implements OnInit {
   searchText;
+  //subsl = this.value;
+  subsl: '';
   data: Array<any>;
   totalRecords: string;
   page: number = 1;
@@ -55,6 +57,11 @@ export class ListSubjectComponent implements OnInit {
     this.resetForm();
     this.service.getSubjects();
   }
+  //lựa chọn số phần tử hiển thị trên trang
+  updateValue(value: any) {
+    this.subsl = value;
+  }
+
   resetForm(form?: NgForm) {
     if (form != null) form.resetForm();
     this.service.formData = {
