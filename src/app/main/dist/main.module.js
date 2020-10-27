@@ -100,14 +100,6 @@ exports.mainRoutes = [
                 component: unauthorized_component_1.UnauthorizedComponent
             },
             {
-                path: 'user',
-                loadChildren: function () {
-                    return Promise.resolve().then(function () { return require('./user/user.module'); }).then(function (m) { return m.UserModule; });
-                },
-                canActivate: [auth_guard_1.RoleGuard],
-                data: { roles: [role_1.Role.Admin] }
-            },
-            {
                 path: 'product',
                 loadChildren: function () {
                     return Promise.resolve().then(function () { return require('./product/product.module'); }).then(function (m) { return m.ProductModule; });

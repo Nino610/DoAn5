@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.ListSubjectComponent = void 0;
 var core_1 = require("@angular/core");
+var XLSX = require("xlsx");
 var ListSubjectComponent = /** @class */ (function () {
     function ListSubjectComponent(service, toastr) {
         this.service = service;
@@ -27,6 +28,24 @@ var ListSubjectComponent = /** @class */ (function () {
         this.resetForm();
         this.service.getSubjects();
     };
+    //import excel
+    ListSubjectComponent.prototype.onFileChange = function (evt) {
+        var _this = this;
+        var target = evt.target;
+        if (target.files.length !== 1)
+            throw new Error('vui lòng chọn lại');
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var bstr = e.target.result;
+            var wb = XLSX.read(bstr, { type: 'binary' });
+            var wsname = wb.SheetNames[0];
+            var ws = wb.Sheets[wsname];
+            console.log(ws);
+            _this.dataExcel = XLSX.utils.sheet_to_json(ws, { header: 1 });
+        };
+        reader.readAsBinaryString(target.files[0]);
+        console.log(this.dataExcel);
+    };
     //lựa chọn số phần tử hiển thị trên trang
     ListSubjectComponent.prototype.updateValue = function (value) {
         this.subsl = value;
@@ -42,11 +61,12 @@ var ListSubjectComponent = /** @class */ (function () {
         };
     };
     ListSubjectComponent.prototype.onSubmit = function (form) {
+        this.insertRecord(form);
+        this.toastr.success('Thông báo', 'Thao tác thành công');
         if (form.value.subjectId == null)
             this.insertRecord(form);
         else
             this.updateRecord(form);
-        this.toastr.success('Thông báo', 'Thao tác thành công');
     };
     ListSubjectComponent.prototype.insertRecord = function (form) {
         var _this = this;
@@ -65,12 +85,20 @@ var ListSubjectComponent = /** @class */ (function () {
         var _this = this;
         //console.log('ffffffff',form.value);
         this.service.putSubjects(form.value).subscribe(function (res) {
-            _this.toastr.success('Thông báo', 'Thao tác thành công');
             _this.resetForm(form);
             _this.service.getSubjects();
         }, function (err) {
             console.log(err);
         });
+    };
+    ListSubjectComponent.prototype["delete"] = function (id) {
+        var _this = this;
+        if (confirm('Bạn có chắc chắn muốn xóa không')) {
+            this.service.deleteSubject(id).subscribe(function (res) {
+                _this.service.getSubjects();
+                _this.toastr.warning('Thông báo', 'Thao tác thành công');
+            });
+        }
     };
     ListSubjectComponent = __decorate([
         core_1.Component({

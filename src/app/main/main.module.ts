@@ -65,6 +65,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ListSubjectComponent } from './list-subject/list-subject.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { LoginComponent } from '../user/login/login.component';
+import { RegisterComponent } from '../user/register/register.component';
 export const mainRoutes: Routes = [
   {
     path: '',
@@ -89,13 +91,6 @@ export const mainRoutes: Routes = [
       {
         path: 'unauthorized',
         component: UnauthorizedComponent,
-      },
-      {
-        path: 'user',
-        loadChildren: () =>
-          import('./user/user.module').then((m) => m.UserModule),
-        canActivate: [RoleGuard],
-        data: { roles: [Role.Admin] },
       },
       {
         path: 'product',

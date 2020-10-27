@@ -4,7 +4,7 @@
         background: #ffffff;
         padding-bottom: 12vh;
     }
-
+    
     .p-inputtext {
         font-size: 1.2rem !important;
     }
@@ -55,15 +55,25 @@
         <!-- END BREADCRUMB-->
         <br />
         <button style="margin-left: 50px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-plus"></i>Thêm</button>
+        <input type="file" (change)="onFileChange($event)" style="width: 100px; padding-left: 50px;" multiple="false">
         <select style="float:right" #luachon (change)="updateValue(luachon.value)">
           <option selected value="3" >--Sắp xếp số lượng--</option>
+          <option value="2" >2</option>
           <option value="5" >5</option>
           <option value="8" >8</option>
           <option value="10" >10</option>
         </select>
         <br />
         <input style="width: 800px;margin-top: 10px;margin-left: 100px;" class="form-control" type="text" [(ngModel)]="searchText" name="search" autocomplete="off" placeholder="&#61442; Tìm kiếm">
-
+        <div>
+            <table>
+                <tr *ngFor="let row of dataExcel">
+                    <td *ngFor="let cell of row">
+                        {{ cell }}
+                    </td>
+                </tr>
+            </table>
+        </div>
         <br/>
         <table class="table table-hover ">
             <thead style="text-align: center">
@@ -83,11 +93,12 @@
                     <td>
                         <button (click)="updateform(sub)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-pencil"></i>Sửa</button>
                         <button style="margin-left: 5px;" type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-eye"></i>Chi tiết</button>
+                        <button (click)="delete(sub.subjectId)" style="margin-left: 5px;" type="button" class="btn btn-danger"><i class="pi pi-trash"></i>Xóa</button>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <p-confirmDialog [style]="{width: '450px'} "></p-confirmDialog>
+
         <div style=" padding-left: 300px;">
             <pagination-controls id="listing_pagination" maxSize="5" direclinks="true" (pageChange)="page=$event"></pagination-controls>
         </div>
@@ -110,12 +121,6 @@
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom01">Mã bộ môn: </label>
-                            <!-- <select names="departmentId" class="mdb-select md-form">
-                              <option value="" disabled selected>Choose your option</option>
-                              <option value="1">Option 1</option>
-                              <option value="2">Option 2</option>
-                              <option value="3">Option 3</option>
-                            </select> -->
                             <input name="departmentId" #departmentId="ngModel" [(ngModel)]="service.formData.departmentId" style="width: 150px;" class="form-control" placeholder="Mã bộ môn" required>
                             <div class="invalid-feedback">
                                 Vui lòng điền dữ liệu!
@@ -146,7 +151,7 @@
                         </div>
                     </div>
                     <button [disabled]="form.invalid" class="btn btn-primary" type="submit">Xác nhận</button>
-                    <button style="float: right;" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button (click)="resetForm()" style="float: right;" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                 </form>
             </div>
         </div>

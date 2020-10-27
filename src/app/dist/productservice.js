@@ -8,12 +8,43 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.ProductService = void 0;
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var ProductService = /** @class */ (function () {
-    function ProductService(http) {
+    function ProductService(http, fb) {
         this.http = http;
+        this.fb = fb;
         this.status = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
         this.apiUrl = 'https://localhost:44399';
+        //register
+        this.formModel = this.fb.group({
+            username: ['', forms_1.Validators.required],
+            role: ['', forms_1.Validators.required],
+            departmentId: ['', forms_1.Validators.required],
+            passwords: this.fb.group({
+                password: ['', [forms_1.Validators.required, forms_1.Validators.minLength(4)]],
+                confirmpassword: ['', forms_1.Validators.required]
+            }, { validator: this.comparePassword })
+        });
     }
+    ProductService.prototype.comparePassword = function (fb) {
+        var ConfirmPasswordCheck = fb.get('confirmpassword');
+        if (ConfirmPasswordCheck.errors == null ||
+            'CheckPassGiongNhau' in ConfirmPasswordCheck.errors) {
+            if (fb.get('password').value != ConfirmPasswordCheck.value)
+                ConfirmPasswordCheck.setErrors({ CheckPassGiongNhau: true });
+            else
+                ConfirmPasswordCheck.setErrors(null);
+        }
+    };
+    ProductService.prototype.register = function () {
+        var body = {
+            username: this.formModel.value.username,
+            role: this.formModel.value.role,
+            departmentId: this.formModel.value.departmentId,
+            password: this.formModel.value.passwords.password
+        };
+        return this.http.post(this.apiUrl + '/api/Accounts/Them', body);
+    };
     ProductService.prototype.getEmployees = function () {
         var _this = this;
         this.http
@@ -36,6 +67,9 @@ var ProductService = /** @class */ (function () {
     ProductService.prototype.putSubjects = function (formData) {
         formData.credit = +formData.credit;
         return this.http.put(this.apiUrl + '/api/Subjects/sua/' + formData.subjectId, formData);
+    };
+    ProductService.prototype.deleteSubject = function (id) {
+        return this.http["delete"](this.apiUrl + '/api/Subjects/xoa/' + id);
     };
     ProductService = __decorate([
         core_1.Injectable({ providedIn: 'root' })

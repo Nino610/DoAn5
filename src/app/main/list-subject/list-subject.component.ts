@@ -9,6 +9,7 @@ import { PrimeNGConfig } from 'primeng/api';
 import { Subject } from 'src/app/models/subjects';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import * as XLSX from 'xlsx';
 interface Food {
   value: string;
   viewValue: string;
@@ -33,6 +34,7 @@ export class ListSubjectComponent implements OnInit {
   //subsl = this.value;
   subsl: '';
   data: Array<any>;
+  dataExcel: [][];
   totalRecords: string;
   page: number = 1;
   foods: Food[] = [
@@ -43,9 +45,6 @@ export class ListSubjectComponent implements OnInit {
     { value: 'HK1-2020-2021', viewValue: 'Học kỳ 1 - Năm Học 2020-2021' },
     { value: 'HK2-2020-2021', viewValue: 'Học kỳ 2 - Năm Học 2020-2021' },
   ];
-
-  Employees: Employee[];
-  Employee: Employee;
   submitted: boolean;
   Subjects: Subject[];
   Subject: Subject;
@@ -56,6 +55,22 @@ export class ListSubjectComponent implements OnInit {
   ngOnInit() {
     this.resetForm();
     this.service.getSubjects();
+  }
+  //import excel
+  onFileChange(evt: any) {
+    const target: DataTransfer = <DataTransfer>evt.target;
+    if (target.files.length !== 1) throw new Error('vui lòng chọn lại');
+    const reader: FileReader = new FileReader();
+    reader.onload = (e: any) => {
+      const bstr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+      const wsname: string = wb.SheetNames[0];
+      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+      console.log(ws);
+      this.dataExcel = XLSX.utils.sheet_to_json(ws, { header: 1 });
+    };
+    reader.readAsBinaryString(target.files[0]);
+    console.log(this.dataExcel);
   }
   //lựa chọn số phần tử hiển thị trên trang
   updateValue(value: any) {
@@ -72,10 +87,12 @@ export class ListSubjectComponent implements OnInit {
     };
   }
   onSubmit(form: NgForm) {
+    this.insertRecord(form);
+    this.toastr.success('Thông báo', 'Thao tác thành công');
     if (form.value.subjectId == null) this.insertRecord(form);
     else this.updateRecord(form);
-    this.toastr.success('Thông báo', 'Thao tác thành công');
   }
+
   insertRecord(form: NgForm) {
     //console.log('ffffffff',form.value);
     this.service.postSubjects(form.value).subscribe(
@@ -95,7 +112,6 @@ export class ListSubjectComponent implements OnInit {
     //console.log('ffffffff',form.value);
     this.service.putSubjects(form.value).subscribe(
       (res) => {
-        this.toastr.success('Thông báo', 'Thao tác thành công');
         this.resetForm(form);
         this.service.getSubjects();
       },
@@ -103,5 +119,13 @@ export class ListSubjectComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+  delete(id: string) {
+    if (confirm('Bạn có chắc chắn muốn xóa không')) {
+      this.service.deleteSubject(id).subscribe((res) => {
+        this.service.getSubjects();
+        this.toastr.warning('Thông báo', 'Thao tác thành công');
+      });
+    }
   }
 }
