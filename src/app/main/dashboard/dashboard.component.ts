@@ -3,6 +3,7 @@ import { Product } from '../../product';
 import { ProductService } from '../../productservice';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { AuthenticationService } from 'src/app/lib/authentication.service';
 
 interface Food {
   value: string;
@@ -24,14 +25,13 @@ interface Food {
   styleUrls: ['../dashboard/dashboard.component.css'],
 })
 export class DashboardComponent {
-
   foods: Food[] = [
-    {value: 'HK1-2018-2019', viewValue: 'Học kỳ 1 - Năm Học 2018-2019'},
-    {value: 'HK2-2018-2019', viewValue: 'Học kỳ 2- Năm Học 2018-2019'},
-    {value: 'HK1-2019-2020', viewValue: 'Học kỳ 1 - Năm Học 2019-2020'},
-    {value: 'HK2-2019-2020', viewValue: 'Học kỳ 2 - Năm Học 2019-2020'},
-    {value: 'HK1-2020-2021', viewValue: 'Học kỳ 1 - Năm Học 2020-2021'},
-    {value: 'HK2-2020-2021', viewValue: 'Học kỳ 2 - Năm Học 2020-2021'},
+    { value: 'HK1-2018-2019', viewValue: 'Học kỳ 1 - Năm Học 2018-2019' },
+    { value: 'HK2-2018-2019', viewValue: 'Học kỳ 2- Năm Học 2018-2019' },
+    { value: 'HK1-2019-2020', viewValue: 'Học kỳ 1 - Năm Học 2019-2020' },
+    { value: 'HK2-2019-2020', viewValue: 'Học kỳ 2 - Năm Học 2019-2020' },
+    { value: 'HK1-2020-2021', viewValue: 'Học kỳ 1 - Năm Học 2020-2021' },
+    { value: 'HK2-2020-2021', viewValue: 'Học kỳ 2 - Năm Học 2020-2021' },
   ];
 
   productDialog: boolean;
@@ -47,11 +47,13 @@ export class DashboardComponent {
   constructor(
     private productService: ProductService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private authenticationService: AuthenticationService
   ) {}
 
   ngOnInit() {
     // this.productService.getProducts().then((data) => (this.products = data));
+    console.log(this.authenticationService.userValue);
   }
 
   openNew() {

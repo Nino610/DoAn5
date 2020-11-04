@@ -10,9 +10,10 @@ exports.ListSubjectComponent = void 0;
 var core_1 = require("@angular/core");
 var XLSX = require("xlsx");
 var ListSubjectComponent = /** @class */ (function () {
-    function ListSubjectComponent(service, toastr) {
+    function ListSubjectComponent(service, toastr, authenticationService) {
         this.service = service;
         this.toastr = toastr;
+        this.authenticationService = authenticationService;
         this.page = 1;
         this.foods = [
             { value: 'HK1-2018-2019', viewValue: 'Học kỳ 1 - Năm Học 2018-2019' },
@@ -27,6 +28,7 @@ var ListSubjectComponent = /** @class */ (function () {
     ListSubjectComponent.prototype.ngOnInit = function () {
         this.resetForm();
         this.service.getSubjects();
+        //console.log(this.authenticationService.userValue);
     };
     //import excel
     ListSubjectComponent.prototype.onFileChange = function (evt) {

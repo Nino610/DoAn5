@@ -3,12 +3,12 @@
         color: black;
         font-size: 15px;
     }
-
+    
     input {
         width: 250px;
         border-radius: 30px;
     }
-
+    
     .form-group row {
         padding: 20px;
     }
@@ -18,11 +18,11 @@
 
         <div style="width:350px;height: 450px; background-color:white">
             <img src="https://840499.smushcdn.com/1744222/wp-content/uploads/2020/04/logo-1-e1588086735987.png" alt="Cool Admin" style="width: 110px; margin-left: 120px; padding-top: 30px;">
-            <form #form='ngForm' style=" padding-top: 50px; padding-left:60px">
+            <form #form='ngForm' style=" padding-top: 50px; padding-left:60px" (submit)="onSubmit()">
                 <label for="inputEmail3" class="">Mã cán bộ</label>
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <input #user="ngModel" [ngModel]="formModel.user" type="text" class="form-control" name="user" placeholder="Nhập mã cán bộ" required>
+                        <input #user="ngModel" [ngModel]="formModel.username" type="text" class="form-control" name="user" placeholder="Nhập mã cán bộ" required>
                     </div>
                 </div>
                 <label for="inputPassword3" class="">Password</label>

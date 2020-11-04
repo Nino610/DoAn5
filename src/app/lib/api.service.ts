@@ -18,7 +18,7 @@ export class ApiService {
     return this._http
       .post<any>(this.host + 'url', body, { headers: headerOptions })
       .pipe(
-        map(res => {
+        map((res) => {
           return res;
         })
       );
@@ -28,12 +28,10 @@ export class ApiService {
     let cloneHeader: any = {};
     cloneHeader['Content-Type'] = 'application/json';
     const headerOptions = new HttpHeaders(cloneHeader);
-    return this._http
-      .get(this.host + url, { headers: headerOptions })
-      .pipe(
-        map(res  => {
-          return res;
-        })
-      );
+    return this._http.get(this.host + url, { headers: headerOptions }).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 }

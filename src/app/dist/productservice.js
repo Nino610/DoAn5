@@ -45,6 +45,10 @@ var ProductService = /** @class */ (function () {
         };
         return this.http.post(this.apiUrl + '/api/Accounts/Them', body);
     };
+    //login
+    ProductService.prototype.login = function (formData) {
+        return this.http.post(this.apiUrl + '/api/ApplicationUser/Login', formData);
+    };
     ProductService.prototype.getEmployees = function () {
         var _this = this;
         this.http

@@ -9,13 +9,15 @@ exports.__esModule = true;
 exports.LoginComponent = void 0;
 var core_1 = require("@angular/core");
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent() {
+    function LoginComponent(service) {
+        this.service = service;
         this.formModel = {
-            user: '',
+            username: '',
             password: ''
         };
     }
     LoginComponent.prototype.ngOnInit = function () { };
+    LoginComponent.prototype.onSubmit = function (fomr) { };
     LoginComponent = __decorate([
         core_1.Component({
             selector: 'app-login',

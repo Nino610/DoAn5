@@ -10,6 +10,7 @@ import { Subject } from 'src/app/models/subjects';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import * as XLSX from 'xlsx';
+import { AuthenticationService } from 'src/app/lib/authentication.service';
 interface Food {
   value: string;
   viewValue: string;
@@ -48,13 +49,18 @@ export class ListSubjectComponent implements OnInit {
   submitted: boolean;
   Subjects: Subject[];
   Subject: Subject;
-  constructor(public service: ProductService, private toastr: ToastrService) {
+  constructor(
+    public service: ProductService,
+    private toastr: ToastrService,
+    private authenticationService: AuthenticationService
+  ) {
     this.data = new Array<any>();
   }
 
   ngOnInit() {
     this.resetForm();
     this.service.getSubjects();
+    //console.log(this.authenticationService.userValue);
   }
   //import excel
   onFileChange(evt: any) {

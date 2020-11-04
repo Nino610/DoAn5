@@ -47,7 +47,10 @@ export class ProductService {
     };
     return this.http.post(this.apiUrl + '/api/Accounts/Them', body);
   }
-
+  //login
+  login(formData) {
+    return this.http.post(this.apiUrl + '/api/ApplicationUser/Login', formData);
+  }
   getEmployees() {
     this.http
       .get(this.apiUrl + '/api/Employees')

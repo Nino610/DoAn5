@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ProductService } from '../../productservice';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   formModel = {
-    user: '',
+    username: '',
     password: '',
   };
-  constructor() {}
+  constructor(private service: ProductService) {}
 
   ngOnInit(): void {}
+  onSubmit(fomr: NgForm) {}
 }
