@@ -47,7 +47,8 @@ var ProductService = /** @class */ (function () {
     };
     //login
     ProductService.prototype.login = function (formData) {
-        return this.http.post(this.apiUrl + '/api/ApplicationUser/Login', formData);
+        console.log(formData);
+        return this.http.post(this.apiUrl + '/api/Accounts/Login', formData);
     };
     ProductService.prototype.getEmployees = function () {
         var _this = this;
@@ -57,6 +58,7 @@ var ProductService = /** @class */ (function () {
             .then(function (res) { return (_this.listEmployees = res); });
         //console.log(this.listEmployees);
     };
+    // subject: môn học
     ProductService.prototype.getSubjects = function () {
         var _this = this;
         this.http

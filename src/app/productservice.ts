@@ -49,7 +49,8 @@ export class ProductService {
   }
   //login
   login(formData) {
-    return this.http.post(this.apiUrl + '/api/ApplicationUser/Login', formData);
+    console.log(formData);
+    return this.http.post(this.apiUrl + '/api/Accounts/Login', formData);
   }
   getEmployees() {
     this.http
@@ -58,7 +59,7 @@ export class ProductService {
       .then((res) => (this.listEmployees = res as Employee[]));
     //console.log(this.listEmployees);
   }
-
+  // subject: môn học
   getSubjects() {
     this.http
       .get(this.apiUrl + '/api/Subjects')

@@ -9,15 +9,28 @@ exports.__esModule = true;
 exports.LoginComponent = void 0;
 var core_1 = require("@angular/core");
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(service) {
+    function LoginComponent(service, router, toastr) {
         this.service = service;
+        this.router = router;
+        this.toastr = toastr;
         this.formModel = {
             username: '',
             password: ''
         };
     }
     LoginComponent.prototype.ngOnInit = function () { };
-    LoginComponent.prototype.onSubmit = function (fomr) { };
+    LoginComponent.prototype.onSubmit = function (form) {
+        var _this = this;
+        this.service.login(form.value).subscribe(function (res) {
+            localStorage.setItem('token', res.token);
+            _this.router.navigateByUrl('');
+        }, function (err) {
+            if (err.status === 400)
+                _this.toastr.error('Sai tên tài khoản hoặc mật khẩu', 'Đăng nhập thất bại');
+            else
+                console.log(err);
+        });
+    };
     LoginComponent = __decorate([
         core_1.Component({
             selector: 'app-login',

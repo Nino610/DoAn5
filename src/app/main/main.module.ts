@@ -97,7 +97,7 @@ export const mainRoutes: Routes = [
         loadChildren: () =>
           import('./product/product.module').then((m) => m.ProductModule),
         canActivate: [RoleGuard],
-        data: { roles: [Role.Admin, Role.User] },
+        data: { roles: [Role.CanBo, Role.GiangVien] },
       },
     ],
   },

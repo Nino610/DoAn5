@@ -105,7 +105,7 @@ exports.mainRoutes = [
                     return Promise.resolve().then(function () { return require('./product/product.module'); }).then(function (m) { return m.ProductModule; });
                 },
                 canActivate: [auth_guard_1.RoleGuard],
-                data: { roles: [role_1.Role.Admin, role_1.Role.User] }
+                data: { roles: [role_1.Role.CanBo, role_1.Role.GiangVien] }
             },
         ]
     },
