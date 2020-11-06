@@ -19,7 +19,10 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    //nếu đã dăng nhập sẽ được chuyển sang trang chủ
+    //if (localStorage.getItem('token') != null) this.router.navigateByUrl('/');
+  }
   onSubmit(form: NgForm) {
     this.service.login(form.value).subscribe(
       (res: any) => {

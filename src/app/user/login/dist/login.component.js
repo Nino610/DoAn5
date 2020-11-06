@@ -18,7 +18,10 @@ var LoginComponent = /** @class */ (function () {
             password: ''
         };
     }
-    LoginComponent.prototype.ngOnInit = function () { };
+    LoginComponent.prototype.ngOnInit = function () {
+        //nếu đã dăng nhập sẽ được chuyển sang trang chủ
+        //if (localStorage.getItem('token') != null) this.router.navigateByUrl('/');
+    };
     LoginComponent.prototype.onSubmit = function (form) {
         var _this = this;
         this.service.login(form.value).subscribe(function (res) {

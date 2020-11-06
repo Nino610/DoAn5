@@ -92,13 +92,13 @@ export const mainRoutes: Routes = [
         path: 'unauthorized',
         component: UnauthorizedComponent,
       },
-      {
-        path: 'product',
-        loadChildren: () =>
-          import('./product/product.module').then((m) => m.ProductModule),
-        canActivate: [RoleGuard],
-        data: { roles: [Role.CanBo, Role.GiangVien] },
-      },
+      // {
+      //   path: 'product',
+      //   loadChildren: () =>
+      //     import('./product/product.module').then((m) => m.ProductModule),
+      //   canActivate: [RoleGuard],
+      //   data: { roles: [Role.CanBo, Role.GiangVien] },
+      // },
     ],
   },
 ];

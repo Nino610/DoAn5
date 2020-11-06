@@ -51,9 +51,9 @@ export class ListSubjectComponent implements OnInit {
   Subject: Subject;
   constructor(
     public service: ProductService,
-    private toastr: ToastrService,
-    private authenticationService: AuthenticationService
-  ) {
+    private toastr: ToastrService
+  ) //private authenticationService: AuthenticationService
+  {
     this.data = new Array<any>();
   }
 

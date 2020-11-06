@@ -15,8 +15,6 @@ var navbar_component_1 = require("../shared/navbar/navbar.component");
 var main_component_1 = require("./main.component");
 var router_1 = require("@angular/router");
 var dashboard_component_1 = require("./dashboard/dashboard.component");
-var auth_guard_1 = require("../lib/auth.guard");
-var role_1 = require("../models/role");
 var shared_module_1 = require("../shared/shared.module");
 var unauthorized_component_1 = require("../shared/unauthorized/unauthorized.component");
 var file_not_found_component_1 = require("../shared/file-not-found/file-not-found.component");
@@ -98,14 +96,6 @@ exports.mainRoutes = [
             {
                 path: 'unauthorized',
                 component: unauthorized_component_1.UnauthorizedComponent
-            },
-            {
-                path: 'product',
-                loadChildren: function () {
-                    return Promise.resolve().then(function () { return require('./product/product.module'); }).then(function (m) { return m.ProductModule; });
-                },
-                canActivate: [auth_guard_1.RoleGuard],
-                data: { roles: [role_1.Role.CanBo, role_1.Role.GiangVien] }
             },
         ]
     },
