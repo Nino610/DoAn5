@@ -50,6 +50,7 @@ var ProductService = /** @class */ (function () {
         console.log(formData);
         return this.http.post(this.apiUrl + '/api/Accounts/Login', formData);
     };
+    // employees: giảng viên
     ProductService.prototype.getEmployees = function () {
         var _this = this;
         this.http
@@ -57,6 +58,10 @@ var ProductService = /** @class */ (function () {
             .toPromise()
             .then(function (res) { return (_this.listEmployees = res); });
         //console.log(this.listEmployees);
+    };
+    ProductService.prototype.putEmployees = function (formDataEmployee) {
+        //formData.phoneNumber = +formData.phoneNumber;
+        return this.http.put(this.apiUrl + '/api/Employees/sua/' + formDataEmployee.employeeId, formDataEmployee);
     };
     // subject: môn học
     ProductService.prototype.getSubjects = function () {

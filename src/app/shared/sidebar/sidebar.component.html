@@ -17,7 +17,7 @@
         <nav class="navbar-sidebar2">
             <ul class="list-unstyled navbar__list">
                 <li class="active has-sub">
-                    <a class="js-arrow" style="color: #045270;">
+                    <a class="js-arrow" [routerLink]="['/'] " style="color: #045270;">
                         <i class="pi pi-home"></i>Dashboard
 
                     </a>
@@ -45,19 +45,19 @@
                 </li>
 
                 <li class="active has-sub">
-                    <a style="text-decoration: none;" class="js-arrow" style="color: #045270;">
-                        <i class="pi pi-users"></i>TÀI KHOẢN
+                    <a style="text-decoration: none;" class="js-arrow" style=" color: #045270; ">
+                        <i class="pi pi-users "></i>TÀI KHOẢN
                     </a>
                 </li>
 
-                <li class="active has-sub">
-                    <a style="text-decoration: none;" class="js-arrow" href="#">
-                        <i class="pi pi-user-edit"></i>Thông tin cá nhân
+                <li class="active has-sub ">
+                    <a style="text-decoration: none; " class="js-arrow " [routerLink]="['/profile'] ">
+                        <i class="pi pi-user-edit "></i>Thông tin cá nhân
                     </a>
                 </li>
-                <li class="active has-sub">
-                    <a style="text-decoration: none;" class="js-arrow" href="#">
-                        <i class="pi pi-key"></i>Thay đổi mật khẩu
+                <li class="active has-sub ">
+                    <a style="text-decoration: none; " class="js-arrow " href="# ">
+                        <i class="pi pi-key "></i>Thay đổi mật khẩu
                     </a>
                 </li>
 

@@ -67,6 +67,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { LoginComponent } from '../user/login/login.component';
 import { RegisterComponent } from '../user/register/register.component';
+import { ProfileUserComponent } from './profile-user/profile-user.component';
 export const mainRoutes: Routes = [
   {
     path: '',
@@ -83,6 +84,10 @@ export const mainRoutes: Routes = [
       {
         path: 'calendar',
         component: CalendarComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileUserComponent ,
       },
       {
         path: 'not-found',
@@ -111,6 +116,7 @@ export const mainRoutes: Routes = [
     DashboardComponent,
     ListSubjectComponent,
     CalendarComponent,
+    ProfileUserComponent,
   ],
   imports: [
     SharedModule,

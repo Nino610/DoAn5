@@ -1,0 +1,83 @@
+<style>
+    /* .page-wrapper {
+        overflow: auto;
+        background: #ffffff;
+        padding-bottom: 12vh;
+    }
+
+    .p-inputtext {
+        font-size: 1.2rem !important;
+    } */
+</style>
+<div class="page-wrapper">
+
+    <div class="page-container2">
+        <div style="padding-top:100px;padding-left: 50px;">
+            <h3>Thông tin cá nhân</h3>
+            <!-- BREADCRUMB-->
+            <form #form="ngForm" (submit)="onSubmit(form)" class="needs-validation" novalidate>
+                <input type="hidden" name="employeeId" #employeeId="ngModel" [(ngModel)]="service.formDataEmployee.employeeId">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustom01">Mã giảng viên: </label>
+                        <input disabled name="departmentId" #departmentId="ngModel" [(ngModel)]="service.formDataEmployee.departmentId" style="width: 150px;" class="form-control" placeholder="Mã giảng viên" required>
+                        <div class="invalid-feedback">
+                            Vui lòng điền dữ liệu!
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="validationCustom05">Tên giảng viên</label>
+                        <input name="fullName" #fullName="ngModel" [(ngModel)]="service.formDataEmployee.fullName" style="width: 150px;" class="form-control" placeholder="Tên giảng viên" required>
+                        <div class="invalid-feedback">
+                            Vui lòng điền dữ liệu!
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustom03">Giới tính</label>
+                        <input name="gender" #gender="ngModel" [(ngModel)]="service.formDataEmployee.gender" type="text" class="form-control" placeholder="Giới tính" required>
+                        <div class="invalid-feedback">
+                            Vui lòng điền dữ liệu!
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="validationCustom04">Ngày sinh</label>
+                        <input name="birthday" #birthday="ngModel" [(ngModel)]="service.formDataEmployee.birthday" type="text" class="form-control" placeholder="Ngày sinh" required>
+                        <div class="invalid-feedback">
+                            Vui lòng điền dữ liệu!
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustom03">Địa chỉ</label>
+                        <input name="address" #address="ngModel" [(ngModel)]="service.formDataEmployee.address" type="text" class="form-control" placeholder="Giới tính" required>
+                        <div class="invalid-feedback">
+                            Vui lòng điền dữ liệu!
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="validationCustom04">Email</label>
+                        <input name="email" #email="ngModel" [(ngModel)]="service.formDataEmployee.email" type="text" class="form-control" placeholder="Email" required>
+                        <div class="invalid-feedback">
+                            Vui lòng điền dữ liệu!
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustom03">Số điện thoại</label>
+                        <input name="phoneNumber" #phoneNumber="ngModel" [(ngModel)]="service.formDataEmployee.phoneNumber" type="text" class="form-control" placeholder="Số điện thoại" required>
+                        <div class="invalid-feedback">
+                            Vui lòng điền dữ liệu!
+                        </div>
+                    </div>
+                </div>
+                <button [disabled]="form.invalid" class="btn btn-primary" type="submit">Xác nhận</button>
+            </form>
+        </div>
+        <!-- END BREADCRUMB-->
+    </div>
+
+</div>

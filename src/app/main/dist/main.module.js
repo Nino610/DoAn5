@@ -72,6 +72,7 @@ var slide_toggle_1 = require("@angular/material/slide-toggle");
 var list_subject_component_1 = require("./list-subject/list-subject.component");
 var calendar_component_1 = require("./calendar/calendar.component");
 var ng2_search_filter_1 = require("ng2-search-filter");
+var profile_user_component_1 = require("./profile-user/profile-user.component");
 exports.mainRoutes = [
     {
         path: '',
@@ -88,6 +89,10 @@ exports.mainRoutes = [
             {
                 path: 'calendar',
                 component: calendar_component_1.CalendarComponent
+            },
+            {
+                path: 'profile',
+                component: profile_user_component_1.ProfileUserComponent
             },
             {
                 path: 'not-found',
@@ -113,6 +118,7 @@ var MainModule = /** @class */ (function () {
                 dashboard_component_1.DashboardComponent,
                 list_subject_component_1.ListSubjectComponent,
                 calendar_component_1.CalendarComponent,
+                profile_user_component_1.ProfileUserComponent,
             ],
             imports: [
                 shared_module_1.SharedModule,

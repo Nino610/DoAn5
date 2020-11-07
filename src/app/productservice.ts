@@ -8,6 +8,7 @@ import { Subject } from './models/subjects';
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   formData: Subject;
+  formDataEmployee: Employee;
   status: string[] = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
   httpClient: any;
   listEmployees: Employee[];
@@ -52,12 +53,20 @@ export class ProductService {
     console.log(formData);
     return this.http.post(this.apiUrl + '/api/Accounts/Login', formData);
   }
+  // employees: giảng viên
   getEmployees() {
     this.http
       .get(this.apiUrl + '/api/Employees')
       .toPromise()
       .then((res) => (this.listEmployees = res as Employee[]));
     //console.log(this.listEmployees);
+  }
+  putEmployees(formDataEmployee: Employee) {
+    //formData.phoneNumber = +formData.phoneNumber;
+    return this.http.put(
+      this.apiUrl + '/api/Employees/sua/' + formDataEmployee.employeeId,
+      formDataEmployee
+    );
   }
   // subject: môn học
   getSubjects() {
