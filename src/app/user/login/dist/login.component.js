@@ -14,7 +14,7 @@ var LoginComponent = /** @class */ (function () {
         this.router = router;
         this.toastr = toastr;
         this.formModel = {
-            username: '',
+            employeeId: '',
             password: ''
         };
     }

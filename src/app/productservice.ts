@@ -17,7 +17,7 @@ export class ProductService {
   constructor(public http: HttpClient, private fb: FormBuilder) {}
   //register
   formModel = this.fb.group({
-    username: ['', Validators.required],
+    employeeId: ['', Validators.required],
     role: ['', Validators.required],
     departmentId: ['', Validators.required],
     passwords: this.fb.group(
@@ -53,6 +53,7 @@ export class ProductService {
     console.log(formData);
     return this.http.post(this.apiUrl + '/api/Accounts/Login', formData);
   }
+  //tài khoản
   // employees: giảng viên
   getEmployees() {
     this.http

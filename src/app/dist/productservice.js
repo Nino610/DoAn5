@@ -17,7 +17,7 @@ var ProductService = /** @class */ (function () {
         this.apiUrl = 'https://localhost:44399';
         //register
         this.formModel = this.fb.group({
-            username: ['', forms_1.Validators.required],
+            employeeId: ['', forms_1.Validators.required],
             role: ['', forms_1.Validators.required],
             departmentId: ['', forms_1.Validators.required],
             passwords: this.fb.group({
@@ -50,6 +50,7 @@ var ProductService = /** @class */ (function () {
         console.log(formData);
         return this.http.post(this.apiUrl + '/api/Accounts/Login', formData);
     };
+    //tài khoản
     // employees: giảng viên
     ProductService.prototype.getEmployees = function () {
         var _this = this;

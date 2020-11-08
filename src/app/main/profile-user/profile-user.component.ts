@@ -11,7 +11,7 @@ import * as XLSX from 'xlsx';
 })
 export class ProfileUserComponent implements OnInit {
   constructor(public service: ProductService, private toastr: ToastrService) {}
-
+  Employee: Employee[];
   ngOnInit(): void {
     this.service.getEmployees();
   }

@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
   formModel = {
-    username: '',
+    employeeId: '',
     password: '',
   };
   constructor(
