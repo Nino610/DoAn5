@@ -5,29 +5,29 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user';
-
+import { Employee } from '../models/employees';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private userSubject: BehaviorSubject<User>;
-  public user: Observable<User>;
+  private userSubject: BehaviorSubject<Employee>;
+  public user: Observable<Employee>;
   BaseURI: string;
 
   constructor(private router: Router, private http: HttpClient) {
-    this.userSubject = new BehaviorSubject<User>(
+    this.userSubject = new BehaviorSubject<Employee>(
       JSON.parse(localStorage.getItem('user'))
     );
     this.user = this.userSubject.asObservable();
   }
 
-  public get userValue(): User {
+  public get userValue(): Employee {
     return this.userSubject.value;
   }
 
-  login(username: string, password: string) {
+  login(employeeId: string, password: string) {
     return this.http
-      .post<any>(`${environment.apiUrl}/users/authenticate`, {
-        username,
-        password,
+      .post<any>(`${environment.apiUrl}/Accounts/Login`, {
+        EmployeeId: employeeId,
+        Password: password,
       })
       .pipe(
         map((user) => {
@@ -42,6 +42,7 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     this.userSubject.next(null);
     this.router.navigate(['/login']);
   }

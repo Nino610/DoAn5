@@ -4,16 +4,33 @@ import { Employee } from 'src/app/models/employees';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import * as XLSX from 'xlsx';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile-user',
   templateUrl: './profile-user.component.html',
   styleUrls: ['./profile-user.component.css'],
 })
 export class ProfileUserComponent implements OnInit {
-  constructor(public service: ProductService, private toastr: ToastrService) {}
+  userDetails;
+  constructor(
+    public service: ProductService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
   Employee: Employee[];
-  ngOnInit(): void {
-    this.service.getEmployees();
+
+  ngOnInit() {
+    //JSON.stringify(this.service.getuserprofile());
+
+    this.service.getuserprofile().subscribe(
+      (res) => {
+        this.userDetails = res;
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   onSubmit(form: NgForm) {

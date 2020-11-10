@@ -9,4 +9,6 @@ export class Employee {
   phoneNumber: string;
   password: string;
   photo: string;
+  token?: string;
+  role: string;
 }

@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.ProductService = void 0;
+var http_1 = require("@angular/common/http");
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var ProductService = /** @class */ (function () {
@@ -51,6 +52,15 @@ var ProductService = /** @class */ (function () {
         return this.http.post(this.apiUrl + '/api/Accounts/Login', formData);
     };
     //tài khoản
+    ProductService.prototype.getuserprofile = function () {
+        var tokenHeader = new http_1.HttpHeaders({
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+        });
+        console.log(tokenHeader);
+        return this.http.get(this.apiUrl + '/api/UserProfile', {
+            headers: tokenHeader
+        });
+    };
     // employees: giảng viên
     ProductService.prototype.getEmployees = function () {
         var _this = this;
@@ -58,7 +68,7 @@ var ProductService = /** @class */ (function () {
             .get(this.apiUrl + '/api/Employees')
             .toPromise()
             .then(function (res) { return (_this.listEmployees = res); });
-        //console.log(this.listEmployees);
+        console.log(this.listEmployees);
     };
     ProductService.prototype.putEmployees = function (formDataEmployee) {
         //formData.phoneNumber = +formData.phoneNumber;

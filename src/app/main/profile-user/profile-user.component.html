@@ -13,21 +13,38 @@
 
     <div class="page-container2">
         <div style="padding-top:100px;padding-left: 50px;">
-            <h3>Thông tin cá nhân</h3>
+            <h2>Thông tin cá nhân </h2>
             <!-- BREADCRUMB-->
-            <form #form="ngForm" (submit)="onSubmit(form)" class="needs-validation" novalidate>
-                <!-- <input type="hidden" name="employeeId" #employeeId="ngModel" [(ngModel)]="service.formDataEmployee.employeeId"> -->
+            <form *ngIf="userDetails" #form="ngForm" (submit)="onSubmit(form)" class="needs-validation" novalidate>
+                <input type="text" disabled name="password">
+                <h2>{{ userDetails.fullname }}</h2>
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustom01">Mã giảng viên: </label>
-                        <input disabled name="departmentId" #departmentId="ngModel" [(ngModel)]="service.formDataEmployee.departmentId" style="width: 150px;" class="form-control" placeholder="Mã giảng viên" required>
+                        <label for="validationCustom01">Mã bộ môn: </label>
+                        <input disabled name="departmentId" style="width: 150px;" class="form-control" [(ngModel)]="userDetails.departmentId" placeholder="Mã giảng viên" required>
                         <div class="invalid-feedback">
                             Vui lòng điền dữ liệu!
                         </div>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="validationCustom05">Tên giảng viên</label>
-                        <input name="fullName" #fullName="ngModel" [(ngModel)]="service.formDataEmployee.fullName" style="width: 150px;" class="form-control" placeholder="Tên giảng viên" required>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustom01">Mã giảng viên: </label>
+                        <input disabled name="employeeId" #employeeId="ngModel" [(ngModel)]="userDetails.employeeId" style="width: 150px;" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Vui lòng điền dữ liệu!
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustom01">Tên giảng viên: </label>
+                        <input name="fullname" style="width: 200px;" class="form-control" [(ngModel)]="userDetails.fullName" required>
+                        <div class="invalid-feedback">
+                            Vui lòng điền dữ liệu!
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustom01">Số điện thoại: </label>
+                        <input name="password" #password="ngModel" [(ngModel)]="userDetails.phoneNumber" style="width: 150px;" class="form-control" required>
                         <div class="invalid-feedback">
                             Vui lòng điền dữ liệu!
                         </div>
@@ -36,14 +53,14 @@
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom03">Giới tính</label>
-                        <input name="gender" #gender="ngModel" [(ngModel)]="service.formDataEmployee.gender" type="text" class="form-control" placeholder="Giới tính" required>
+                        <input name="gender" #gender="ngModel" [(ngModel)]="userDetails.gender" type="text" class="form-control" style="width:100px" placeholder="Giới tính" required>
                         <div class="invalid-feedback">
                             Vui lòng điền dữ liệu!
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="validationCustom04">Ngày sinh</label>
-                        <input name="birthday" #birthday="ngModel" [(ngModel)]="service.formDataEmployee.birthday" type="text" class="form-control" placeholder="Ngày sinh" required>
+                        <input name="birthday" #birthday="ngModel" [(ngModel)]="userDetails.birthday" type="text" class="form-control" style="width:150px" placeholder="Ngày sinh" required>
                         <div class="invalid-feedback">
                             Vui lòng điền dữ liệu!
                         </div>
@@ -52,23 +69,14 @@
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom03">Địa chỉ</label>
-                        <input name="address" #address="ngModel" [(ngModel)]="service.formDataEmployee.address" type="text" class="form-control" placeholder="Giới tính" required>
+                        <input name="address" #address="ngModel" [(ngModel)]="userDetails.address" type="text" class="form-control" style="width:300px" placeholder="Giới tính" required>
                         <div class="invalid-feedback">
                             Vui lòng điền dữ liệu!
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="validationCustom04">Email</label>
-                        <input name="email" #email="ngModel" [(ngModel)]="service.formDataEmployee.email" type="text" class="form-control" placeholder="Email" required>
-                        <div class="invalid-feedback">
-                            Vui lòng điền dữ liệu!
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <label for="validationCustom03">Số điện thoại</label>
-                        <input name="phoneNumber" #phoneNumber="ngModel" [(ngModel)]="service.formDataEmployee.phoneNumber" type="text" class="form-control" placeholder="Số điện thoại" required>
+                        <input name="email" #email="ngModel" [(ngModel)]="userDetails.email" type="text" class="form-control" style="width:300px" placeholder="Email" required>
                         <div class="invalid-feedback">
                             Vui lòng điền dữ liệu!
                         </div>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -54,13 +54,22 @@ export class ProductService {
     return this.http.post(this.apiUrl + '/api/Accounts/Login', formData);
   }
   //tài khoản
+  getuserprofile() {
+    var tokenHeader = new HttpHeaders({
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
+    });
+    console.log(tokenHeader);
+    return this.http.get(this.apiUrl + '/api/UserProfile', {
+      headers: tokenHeader,
+    });
+  }
   // employees: giảng viên
   getEmployees() {
     this.http
       .get(this.apiUrl + '/api/Employees')
       .toPromise()
       .then((res) => (this.listEmployees = res as Employee[]));
-    //console.log(this.listEmployees);
+    console.log(this.listEmployees);
   }
   putEmployees(formDataEmployee: Employee) {
     //formData.phoneNumber = +formData.phoneNumber;

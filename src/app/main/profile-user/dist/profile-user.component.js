@@ -9,12 +9,20 @@ exports.__esModule = true;
 exports.ProfileUserComponent = void 0;
 var core_1 = require("@angular/core");
 var ProfileUserComponent = /** @class */ (function () {
-    function ProfileUserComponent(service, toastr) {
+    function ProfileUserComponent(service, toastr, router) {
         this.service = service;
         this.toastr = toastr;
+        this.router = router;
     }
     ProfileUserComponent.prototype.ngOnInit = function () {
-        this.service.getEmployees();
+        //JSON.stringify(this.service.getuserprofile());
+        var _this = this;
+        this.service.getuserprofile().subscribe(function (res) {
+            _this.userDetails = res;
+            console.log(res);
+        }, function (err) {
+            console.log(err);
+        });
     };
     ProfileUserComponent.prototype.onSubmit = function (form) {
         //this.insertRecord(form);

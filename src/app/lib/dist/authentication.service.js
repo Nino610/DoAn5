@@ -25,12 +25,12 @@ var AuthenticationService = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    AuthenticationService.prototype.login = function (username, password) {
+    AuthenticationService.prototype.login = function (employeeId, password) {
         var _this = this;
         return this.http
-            .post(environment_1.environment.apiUrl + "/users/authenticate", {
-            username: username,
-            password: password
+            .post(environment_1.environment.apiUrl + "/Accounts/Login", {
+            EmployeeId: employeeId,
+            Password: password
         })
             .pipe(operators_1.map(function (user) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -42,6 +42,7 @@ var AuthenticationService = /** @class */ (function () {
     AuthenticationService.prototype.logout = function () {
         // remove user from local storage to log user out
         localStorage.removeItem('user');
+        localStorage.removeItem('token');
         this.userSubject.next(null);
         this.router.navigate(['/login']);
     };

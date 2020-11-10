@@ -20,7 +20,8 @@ var LoginComponent = /** @class */ (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         //nếu đã dăng nhập sẽ được chuyển sang trang chủ
-        //if (localStorage.getItem('token') != null) this.router.navigateByUrl('/');
+        if (localStorage.getItem('token') != null)
+            this.router.navigateByUrl('/');
     };
     LoginComponent.prototype.onSubmit = function (form) {
         var _this = this;
