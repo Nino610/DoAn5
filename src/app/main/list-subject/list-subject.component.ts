@@ -51,9 +51,8 @@ export class ListSubjectComponent implements OnInit {
   Subject: Subject;
   constructor(
     public service: ProductService,
-    private toastr: ToastrService
-  ) //private authenticationService: AuthenticationService
-  {
+    private toastr: ToastrService //private authenticationService: AuthenticationService
+  ) {
     this.data = new Array<any>();
   }
 
@@ -110,6 +109,9 @@ export class ListSubjectComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+  formdetails(sub: Subject) {
+    this.service.formData = Object.assign({}, sub);
   }
   updateform(sub: Subject) {
     this.service.formData = Object.assign({}, sub);

@@ -82,6 +82,12 @@ var ProductService = /** @class */ (function () {
             .toPromise()
             .then(function (res) { return (_this.listSubjects = res); });
     };
+    // getDetailsSubjects(formData: Subject) {
+    //   this.http
+    //     .get(this.apiUrl + '/api/Subjects' + formData.subjectId)
+    //     .toPromise()
+    //     .then((res) => (this.listSubjects = res as Subject[]));
+    // }
     ProductService.prototype.postSubjects = function (formData) {
         formData.credit = +formData.credit; //chuyển định dạng về giống trong models
         return this.http.post(this.apiUrl + '/api/Subjects/them', formData);

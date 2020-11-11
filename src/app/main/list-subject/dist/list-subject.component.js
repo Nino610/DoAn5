@@ -10,7 +10,8 @@ exports.ListSubjectComponent = void 0;
 var core_1 = require("@angular/core");
 var XLSX = require("xlsx");
 var ListSubjectComponent = /** @class */ (function () {
-    function ListSubjectComponent(service, toastr) {
+    function ListSubjectComponent(service, toastr //private authenticationService: AuthenticationService
+    ) {
         this.service = service;
         this.toastr = toastr;
         this.page = 1;
@@ -78,6 +79,9 @@ var ListSubjectComponent = /** @class */ (function () {
         }, function (err) {
             console.log(err);
         });
+    };
+    ListSubjectComponent.prototype.formdetails = function (sub) {
+        this.service.formData = Object.assign({}, sub);
     };
     ListSubjectComponent.prototype.updateform = function (sub) {
         this.service.formData = Object.assign({}, sub);

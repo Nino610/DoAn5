@@ -9,8 +9,9 @@ exports.__esModule = true;
 exports.SidebarComponent = void 0;
 var core_1 = require("@angular/core");
 var SidebarComponent = /** @class */ (function () {
-    function SidebarComponent(router) {
+    function SidebarComponent(router, service) {
         this.router = router;
+        this.service = service;
         this.menus = [
             {
                 name: 'Người dùng',
@@ -34,7 +35,15 @@ var SidebarComponent = /** @class */ (function () {
             },
         ];
     }
-    SidebarComponent.prototype.ngOnInit = function () { };
+    SidebarComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.service.getuserprofile().subscribe(function (res) {
+            _this.userDetails = res;
+            console.log(res);
+        }, function (err) {
+            console.log(err);
+        });
+    };
     SidebarComponent.prototype.ngAfterViewInit = function () {
         $('#sidebar-collapse').click(function () {
             setTimeout(function () {

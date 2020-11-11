@@ -1,3 +1,18 @@
+<style>
+    .uploads {
+        display: none;
+        width: 120px;
+        height: 120px;
+        border: 1px solid;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .image:hover .uploads {
+        display: block;
+        cursor: pointer;
+    }
+</style>
 <aside class="menu-sidebar2">
     <div class="logo">
         <a href="#">
@@ -5,53 +20,60 @@
         </a>
         <h2 style="color: white; padding-left: 20px;">ECLASS</h2>
     </div>
-    <div class="menu-sidebar2__content js-scrollbar1">
-        <div class="account2">
-            <div class="image img-cir img-120">
-                <img src="assets/images/icon/avatar-big-01.jpg" alt="John Doe" />
+    <div style="position: relative;" class=" menu-sidebar2__content js-scrollbar1 ">
+        <div *ngIf="userDetails " class="account2 ">
+            <div class="image img-cir img-120 ">
+                <img src="/assets/images/{{ userDetails.photo}} " alt="John Doe " />
+                <div style="background-color:#333; position: absolute; margin-top: -180px; " class="uploads ">
+                    <a href="#">
+                        <img style=" padding-left: 43px; padding-top: 42px; " src="/assets/images/icon/camera.png " alt="John Doe " />
+                    </a>
+                    <!-- <input type="file " id="avatar " name="avatar " accept="image/png, image/jpeg "> -->
+                </div>
             </div>
-            <h4 class="name">Tên tài khoản</h4>
-            <button (click)="logout()">Đăng xuất</button>
-            <!-- <button (click)="remove()">Xóa tài khoản</button> -->
+            <h4 class="name ">{{ userDetails.fullName }}</h4>
+            <button (click)="logout() ">Đăng xuất</button>
+            <!-- <button (click)="remove() ">Xóa tài khoản</button> -->
+
         </div>
-        <nav class="navbar-sidebar2">
-            <ul class="list-unstyled navbar__list">
-                <li class="active has-sub">
-                    <a class="js-arrow" [routerLink]="['/'] " style="color: #045270;">
-                        <i class="pi pi-home"></i>Dashboard
+        <nav class="navbar-sidebar2 ">
+            <ul class="list-unstyled navbar__list ">
+                <li class="active has-sub ">
+                    <a class="js-arrow " [routerLink]="[ '/'] " style="color: #045270; ">
+                        <i class="pi pi-home "></i>Dashboard
 
                     </a>
 
                 </li>
-                <li class="active has-sub">
-                    <a style="text-decoration: none;" class="js-arrow" [routerLink]="['/listsubject']">
-                        <i class="pi pi-list"></i>Danh sách học phần
+                <li class="active has-sub ">
+                    <a style="text-decoration: none; " class="js-arrow " [routerLink]="[ '/listsubject'] ">
+                        <i class="pi pi-list "></i>Danh sách học phần
                     </a>
                 </li>
-                <li class="active has-sub">
-                    <a style="text-decoration: none;" class="js-arrow" href="#">
-                        <i class="pi pi-calendar-minus"></i>Thời khoá biểu
+                <li class="active has-sub ">
+                    <a style="text-decoration: none; " class="js-arrow " href="# ">
+                        <i class="pi pi-calendar-minus "></i>Thời khoá biểu
                     </a>
                 </li>
-                <li class="active has-sub">
-                    <a style="text-decoration: none;" class="js-arrow" [routerLink]="['/calendar']">
-                        <i class="pi pi-image"></i>Lịch giảng dạy
+                <li class="active has-sub ">
+                    <a style="text-decoration: none; " class="js-arrow " [routerLink]="[ '/calendar'] ">
+                        <i class="pi pi-image "></i>Lịch giảng dạy
                     </a>
                 </li>
-                <li class="active has-sub">
-                    <a style="text-decoration: none;" class="js-arrow" href="#">
-                        <i class="pi pi-print"></i>Kết xuất bảng điểm
+                <li class="active has-sub ">
+                    <a style="text-decoration: none; " class="js-arrow " href="# ">
+                        <i class="pi pi-print "></i>Kết xuất bảng điểm
                     </a>
                 </li>
 
-                <li class="active has-sub">
-                    <a style="text-decoration: none;" class="js-arrow" style=" color: #045270; ">
+                <li class="active has-sub ">
+                    <a style="text-decoration: none; " class="js-arrow " style=" color: #045270; ">
                         <i class="pi pi-users "></i>TÀI KHOẢN
                     </a>
                 </li>
 
                 <li class="active has-sub ">
-                    <a style="text-decoration: none; " class="js-arrow " [routerLink]="['/profile'] ">
+                    <a style="text-decoration: none; " class="js-arrow " [routerLink]="[ '/profile'] ">
                         <i class="pi pi-user-edit "></i>Thông tin cá nhân
                     </a>
                 </li>

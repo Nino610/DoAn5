@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/app/models/User';
+import { ProductService } from '../../productservice';
 declare let $: any;
 @Component({
   selector: 'app-sidebar',
@@ -9,6 +10,7 @@ declare let $: any;
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
+  userDetails;
   private userSubject: BehaviorSubject<User>;
   public menus = [
     {
@@ -32,8 +34,18 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       ],
     },
   ];
-  constructor(private router: Router) {}
-  ngOnInit(): void {}
+  constructor(private router: Router, public service: ProductService) {}
+  ngOnInit(): void {
+    this.service.getuserprofile().subscribe(
+      (res) => {
+        this.userDetails = res;
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
   ngAfterViewInit() {
     $('#sidebar-collapse').click(function () {
       setTimeout(() => {

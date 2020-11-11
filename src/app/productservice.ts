@@ -85,6 +85,12 @@ export class ProductService {
       .toPromise()
       .then((res) => (this.listSubjects = res as Subject[]));
   }
+  // getDetailsSubjects(formData: Subject) {
+  //   this.http
+  //     .get(this.apiUrl + '/api/Subjects' + formData.subjectId)
+  //     .toPromise()
+  //     .then((res) => (this.listSubjects = res as Subject[]));
+  // }
   postSubjects(formData: Subject) {
     formData.credit = +formData.credit; //chuyển định dạng về giống trong models
     return this.http.post(this.apiUrl + '/api/Subjects/them', formData);
