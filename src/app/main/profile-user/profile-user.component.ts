@@ -25,18 +25,52 @@ export class ProfileUserComponent implements OnInit {
     this.service.getuserprofile().subscribe(
       (res) => {
         this.userDetails = res;
+        //this.userDetails = this.service.formDataEmployee;
         console.log(res);
+        //console.log(this.service.formDataEmployee);
       },
       (err) => {
         console.log(err);
       }
     );
   }
-
+  updateRecord(form: NgForm) {
+    //console.log('ffffffff',form.value);
+    this.service.putEmployees(form.value).subscribe(
+      (res) => {
+        this.userDetails = res;
+        this.userDetails = this.service.formDataEmployee;
+        this.resetForm(form);
+        this.service.getuserprofile();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  resetForm(form?: NgForm) {
+    if (form != null) form.resetForm();
+    this.service.formDataEmployee = {
+      employeeId: '',
+      departmentId: '',
+      fullName: '',
+      gender: true,
+      birthday: '',
+      address: '',
+      email: '',
+      phoneNumber: '',
+      password: '',
+      photo: '',
+      token: '',
+      role: '',
+    };
+  }
+  updateform(sub: Employee) {
+    this.service.formDataEmployee = Object.assign({}, sub);
+  }
   onSubmit(form: NgForm) {
     //this.insertRecord(form);
     //this.toastr.success('Thông báo', 'Thao tác thành công');
-    //if (form.value.employeeId == null) this.insertRecord(form);
-    //else this.updateRecord(form);
+    this.updateRecord(form);
   }
 }

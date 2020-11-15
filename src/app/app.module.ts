@@ -14,8 +14,9 @@ import { ProductService } from '../app/productservice';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
+import { AvatarComponent } from './user/avatar/avatar.component';
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, AvatarComponent],
   imports: [
     SharedModule,
     CommonModule,

@@ -12,6 +12,7 @@ var router_1 = require("@angular/router");
 var file_not_found_component_1 = require("./shared/file-not-found/file-not-found.component");
 var auth_guard_1 = require("./lib/auth.guard");
 var login_component_1 = require("./user/login/login.component");
+var avatar_component_1 = require("./user/avatar/avatar.component");
 var register_component_1 = require("./user/register/register.component");
 var routes = [
     {
@@ -22,6 +23,10 @@ var routes = [
     {
         path: 'login',
         component: login_component_1.LoginComponent
+    },
+    {
+        path: 'Avatar',
+        component: avatar_component_1.AvatarComponent
     },
     {
         path: 'register',

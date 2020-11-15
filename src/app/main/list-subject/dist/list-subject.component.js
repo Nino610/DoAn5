@@ -27,7 +27,7 @@ var ListSubjectComponent = /** @class */ (function () {
     }
     ListSubjectComponent.prototype.ngOnInit = function () {
         this.resetForm();
-        this.service.getSubjects();
+        this.service.getAllSubject();
         //console.log(this.authenticationService.userValue);
     };
     //import excel
@@ -60,6 +60,20 @@ var ListSubjectComponent = /** @class */ (function () {
             subjectName: '',
             credit: 0,
             departmentId: ''
+        };
+        this.service.formDataEmployee = {
+            employeeId: '',
+            departmentId: '',
+            fullName: '',
+            gender: true,
+            birthday: '',
+            address: '',
+            email: '',
+            phoneNumber: '',
+            password: '',
+            photo: '',
+            token: '',
+            role: ''
         };
     };
     ListSubjectComponent.prototype.onSubmit = function (form) {

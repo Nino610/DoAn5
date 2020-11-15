@@ -19,16 +19,50 @@ var ProfileUserComponent = /** @class */ (function () {
         var _this = this;
         this.service.getuserprofile().subscribe(function (res) {
             _this.userDetails = res;
+            //this.userDetails = this.service.formDataEmployee;
             console.log(res);
+            //console.log(this.service.formDataEmployee);
         }, function (err) {
             console.log(err);
         });
     };
+    ProfileUserComponent.prototype.updateRecord = function (form) {
+        var _this = this;
+        //console.log('ffffffff',form.value);
+        this.service.putEmployees(form.value).subscribe(function (res) {
+            _this.userDetails = res;
+            _this.userDetails = _this.service.formDataEmployee;
+            _this.resetForm(form);
+            _this.service.getuserprofile();
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ProfileUserComponent.prototype.resetForm = function (form) {
+        if (form != null)
+            form.resetForm();
+        this.service.formDataEmployee = {
+            employeeId: '',
+            departmentId: '',
+            fullName: '',
+            gender: true,
+            birthday: '',
+            address: '',
+            email: '',
+            phoneNumber: '',
+            password: '',
+            photo: '',
+            token: '',
+            role: ''
+        };
+    };
+    ProfileUserComponent.prototype.updateform = function (sub) {
+        this.service.formDataEmployee = Object.assign({}, sub);
+    };
     ProfileUserComponent.prototype.onSubmit = function (form) {
         //this.insertRecord(form);
         //this.toastr.success('Thông báo', 'Thao tác thành công');
-        //if (form.value.employeeId == null) this.insertRecord(form);
-        //else this.updateRecord(form);
+        this.updateRecord(form);
     };
     ProfileUserComponent = __decorate([
         core_1.Component({

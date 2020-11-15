@@ -14,6 +14,7 @@ var ProductService = /** @class */ (function () {
     function ProductService(http, fb) {
         this.http = http;
         this.fb = fb;
+        this.id = 'K1006';
         this.status = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
         this.apiUrl = 'https://localhost:44399';
         //register
@@ -56,8 +57,17 @@ var ProductService = /** @class */ (function () {
         var tokenHeader = new http_1.HttpHeaders({
             Authorization: 'Bearer ' + localStorage.getItem('token')
         });
+        //var name = localStorage.getItem('token');
         console.log(tokenHeader);
         return this.http.get(this.apiUrl + '/api/UserProfile', {
+            headers: tokenHeader
+        });
+    };
+    ProductService.prototype.putuserprofile = function (formDataEmployee) {
+        var tokenHeader = new http_1.HttpHeaders({
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+        });
+        return this.http.put(this.apiUrl + '/api/Employees/sua/' + this.id, {
             headers: tokenHeader
         });
     };
@@ -82,6 +92,14 @@ var ProductService = /** @class */ (function () {
             .toPromise()
             .then(function (res) { return (_this.listSubjects = res); });
     };
+    // getAllSubject(): Observable<any> {
+    //   let cloneHeader: any = {};
+    //   cloneHeader['Content-Type'] = 'application/json';
+    //   const headerOptions = new HttpHeaders(cloneHeader);
+    //   return this.http
+    //     .get(this.apiUrl + '/api/Plans', { headers: headerOptions })
+    //     .pipe(first());
+    // }
     // getDetailsSubjects(formData: Subject) {
     //   this.http
     //     .get(this.apiUrl + '/api/Subjects' + formData.subjectId)
@@ -98,6 +116,15 @@ var ProductService = /** @class */ (function () {
     };
     ProductService.prototype.deleteSubject = function (id) {
         return this.http["delete"](this.apiUrl + '/api/Subjects/xoa/' + id);
+    };
+    //kế hoạch
+    ProductService.prototype.getAllSubject = function () {
+        var cloneHeader = {};
+        cloneHeader['Content-Type'] = 'application/json';
+        var headerOptions = new http_1.HttpHeaders(cloneHeader);
+        return this.http.get(this.apiUrl + '/api/Plans', {
+            headers: headerOptions
+        });
     };
     ProductService = __decorate([
         core_1.Injectable({ providedIn: 'root' })

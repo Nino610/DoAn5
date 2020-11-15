@@ -3,6 +3,7 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { FileNotFoundComponent } from './shared/file-not-found/file-not-found.component';
 import { AuthGuard } from './lib/auth.guard';
 import { LoginComponent } from './user/login/login.component';
+import { AvatarComponent } from './user/avatar/avatar.component';
 import { RegisterComponent } from './user/register/register.component';
 
 const routes: Routes = [
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'Avatar',
+    component: AvatarComponent,
   },
   {
     path: 'register',

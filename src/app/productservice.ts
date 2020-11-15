@@ -2,11 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Employee } from './models/employees';
 import { NgForm } from '@angular/forms';
 import { Subject } from './models/subjects';
 @Injectable({ providedIn: 'root' })
 export class ProductService {
+  id = 'K1006';
+  private userSubject: BehaviorSubject<Employee>;
+  public user: Observable<Employee>;
   formData: Subject;
   formDataEmployee: Employee;
   status: string[] = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
@@ -58,8 +62,17 @@ export class ProductService {
     var tokenHeader = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
+    //var name = localStorage.getItem('token');
     console.log(tokenHeader);
     return this.http.get(this.apiUrl + '/api/UserProfile', {
+      headers: tokenHeader,
+    });
+  }
+  putuserprofile(formDataEmployee: Employee) {
+    var tokenHeader = new HttpHeaders({
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
+    });
+    return this.http.put(this.apiUrl + '/api/Employees/sua/' + this.id, {
       headers: tokenHeader,
     });
   }
@@ -85,6 +98,14 @@ export class ProductService {
       .toPromise()
       .then((res) => (this.listSubjects = res as Subject[]));
   }
+  // getAllSubject(): Observable<any> {
+  //   let cloneHeader: any = {};
+  //   cloneHeader['Content-Type'] = 'application/json';
+  //   const headerOptions = new HttpHeaders(cloneHeader);
+  //   return this.http
+  //     .get(this.apiUrl + '/api/Plans', { headers: headerOptions })
+  //     .pipe(first());
+  // }
   // getDetailsSubjects(formData: Subject) {
   //   this.http
   //     .get(this.apiUrl + '/api/Subjects' + formData.subjectId)
@@ -104,5 +125,14 @@ export class ProductService {
   }
   deleteSubject(id: string) {
     return this.http.delete(this.apiUrl + '/api/Subjects/xoa/' + id);
+  }
+  //kế hoạch
+  getAllSubject(): Observable<any> {
+    let cloneHeader: any = {};
+    cloneHeader['Content-Type'] = 'application/json';
+    const headerOptions = new HttpHeaders(cloneHeader);
+    return this.http.get(this.apiUrl + '/api/Plans', {
+      headers: headerOptions,
+    });
   }
 }

@@ -1,1 +1,106 @@
-<h2>Calendar</h2>
+<style>
+    .page-wrapper {
+        overflow: auto;
+        background: #ffffff;
+        padding-bottom: 12vh;
+    }
+    
+    .p-inputtext {
+        font-size: 1rem !important;
+    }
+    
+    .p-datatable .p-datatable-thead>tr>th {
+        text-align: left;
+        padding: 1rem 1rem;
+        border: 1px solid #e9ecef;
+        border-width: 0 0 1px 0;
+        color: #495057;
+        background: #f8f9fa;
+        transition: box-shadow 0.2s;
+    }
+    
+    .pi-angle-double-left:before {
+        content: "\e92d";
+        font-size: 15px;
+    }
+</style>
+<div class="page-wrapper">
+    <!-- MENU SIDEBAR-->
+
+    <!-- END MENU SIDEBAR-->
+
+    <!-- PAGE CONTAINER-->
+    <div class="page-container2" style="margin-top: 150px;">
+
+        <!-- BREADCRUMB-->
+        <section class="au-breadcrumb m-t-75">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="au-breadcrumb-content">
+                                <div class="au-breadcrumb-left">
+
+                                </div>
+                                <div class="au-breadcrumb-right">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Học kỳ</mat-label>
+                                        <mat-select>
+                                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                {{food.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END BREADCRUMB-->
+        <br />
+        <select style="float:right" #luachon (change)="updateValue(luachon.value)">
+          <option selected value="3" >--Sắp xếp số lượng--</option>
+          <option value="2" >2</option>
+          <option value="5" >5</option>
+          <option value="8" >8</option>
+          <option value="10" >10</option>
+        </select>
+        <br />
+        <input style="width: 800px;margin-top: 10px;margin-left: 100px;" class="form-control" type="text" [(ngModel)]="searchText" name="search" autocomplete="off" placeholder="&#61442; Tìm kiếm">
+        <br />
+        <div style="background: #f2f2f2;" class="card">
+            <table class="table table-hover ">
+                <thead style="text-align: center">
+                    <td><b>Mã môn học</b></td>
+                    <td><b>Mã lớp</b></td>
+                    <td><b>Tên môn học</b></td>
+                    <td><b>Số tín chỉ</b></td>
+                    <td><b>Tên giáo viên</b></td>
+                    <td><b>Kì học</b></td>
+                    <td><b>Năm học</b></td>
+                    <td><b>Khảo sát</b></td>
+                </thead>
+                <tbody>
+                    <tr style="text-align: center" *ngFor="let sub of subjects; index as i">
+                        <td>{{ sub.subjectId }}</td>
+                        <td>{{ sub.class.classId }}</td>
+                        <td>{{ sub.subject.subjectName }}</td>
+                        <td>{{ sub.subject.credit }}</td>
+                        <td>{{ sub.employee.fullName }}</td>
+                        <td>{{ sub.semester }}</td>
+                        <td>{{ sub.year }}</td>
+                        <td>
+                            <button style="margin-left: 5px;" type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalDetails"><i class="pi pi-eye"></i>Chi tiết</button>
+                            <button style="margin-left: 5px;" type="button" class="btn btn-primary"><i class="pi pi-pencil"></i>Khảo sát</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- END STATISTIC-->
+    </div>
+</div>
+© 2020 GitHub, Inc. Terms Privacy Security Status Help Contact GitHub Pricing API Training Blog About
