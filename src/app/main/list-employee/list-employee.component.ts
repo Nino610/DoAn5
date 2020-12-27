@@ -16,6 +16,13 @@ import { AuthenticationService } from 'src/app/lib/authentication.service';
   styleUrls: ['./list-employee.component.css']
 })
 export class ListEmployeeComponent implements OnInit {
+  searchText;
+  //subsl = this.value;
+  subsl: '';
+  data: Array<any>;
+  dataExcel: [][];
+  totalRecords: string;
+  page: number = 1;
   Employee:any;
   constructor(
     public service: ProductService,
