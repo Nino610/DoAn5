@@ -68,6 +68,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { LoginComponent } from '../user/login/login.component';
 import { RegisterComponent } from '../user/register/register.component';
 import { ProfileUserComponent } from './profile-user/profile-user.component';
+import { ListEmployeeComponent } from './list-employee/list-employee.component';
 export const mainRoutes: Routes = [
   {
     path: '',
@@ -87,7 +88,11 @@ export const mainRoutes: Routes = [
       },
       {
         path: 'profile',
-        component: ProfileUserComponent ,
+        component: ProfileUserComponent,
+      },
+      {
+        path: 'listemployee',
+        component: ListEmployeeComponent,
       },
       {
         path: 'not-found',
@@ -117,6 +122,7 @@ export const mainRoutes: Routes = [
     ListSubjectComponent,
     CalendarComponent,
     ProfileUserComponent,
+    ListEmployeeComponent,
   ],
   imports: [
     SharedModule,

@@ -14,7 +14,6 @@ var ProductService = /** @class */ (function () {
     function ProductService(http, fb) {
         this.http = http;
         this.fb = fb;
-        this.id = 'K1006';
         this.status = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
         this.apiUrl = 'https://localhost:44399';
         //register
@@ -67,7 +66,7 @@ var ProductService = /** @class */ (function () {
         var tokenHeader = new http_1.HttpHeaders({
             Authorization: 'Bearer ' + localStorage.getItem('token')
         });
-        return this.http.put(this.apiUrl + '/api/Employees/sua/' + this.id, {
+        return this.http.put(this.apiUrl + '/api/Employees/sua/' + this.formDataEmployee.employeeId, {
             headers: tokenHeader
         });
     };

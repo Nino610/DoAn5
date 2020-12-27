@@ -36,7 +36,7 @@ export class ProfileUserComponent implements OnInit {
   }
   updateRecord(form: NgForm) {
     //console.log('ffffffff',form.value);
-    this.service.putEmployees(form.value).subscribe(
+    this.service.putuserprofile(form.value).subscribe(
       (res) => {
         this.userDetails = res;
         this.userDetails = this.service.formDataEmployee;

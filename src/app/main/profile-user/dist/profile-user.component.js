@@ -29,7 +29,7 @@ var ProfileUserComponent = /** @class */ (function () {
     ProfileUserComponent.prototype.updateRecord = function (form) {
         var _this = this;
         //console.log('ffffffff',form.value);
-        this.service.putEmployees(form.value).subscribe(function (res) {
+        this.service.putuserprofile(form.value).subscribe(function (res) {
             _this.userDetails = res;
             _this.userDetails = _this.service.formDataEmployee;
             _this.resetForm(form);

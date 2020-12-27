@@ -8,7 +8,7 @@ import { NgForm } from '@angular/forms';
 import { Subject } from './models/subjects';
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  id = 'K1006';
+  //id = 'K1006';
   private userSubject: BehaviorSubject<Employee>;
   public user: Observable<Employee>;
   formData: Subject;
@@ -72,9 +72,12 @@ export class ProductService {
     var tokenHeader = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
-    return this.http.put(this.apiUrl + '/api/Employees/sua/' + this.id, {
-      headers: tokenHeader,
-    });
+    return this.http.put(
+      this.apiUrl + '/api/Employees/sua/' + this.formDataEmployee.employeeId,
+      {
+        headers: tokenHeader,
+      }
+    );
   }
   // employees: giảng viên
   getEmployees() {
@@ -91,6 +94,12 @@ export class ProductService {
       formDataEmployee
     );
   }
+  getAllSubject() : Observable<any>{
+    let cloneHeader: any = {};
+    cloneHeader['Content-Type'] = 'application/json';
+    const headerOptions = new HttpHeaders(cloneHeader);
+    return this._http.get(this.apiUrl + '/api/Employees', { headers: headerOptions }).pipe(first());      
+  }
   // subject: môn học
   getSubjects() {
     this.http
@@ -106,12 +115,12 @@ export class ProductService {
   //     .get(this.apiUrl + '/api/Plans', { headers: headerOptions })
   //     .pipe(first());
   // }
-  // getDetailsSubjects(formData: Subject) {
-  //   this.http
-  //     .get(this.apiUrl + '/api/Subjects' + formData.subjectId)
-  //     .toPromise()
-  //     .then((res) => (this.listSubjects = res as Subject[]));
-  // }
+  getDetailsSubjects(formData: Subject) {
+    this.http
+      .get(this.apiUrl + '/api/Subjects' + formData.subjectId)
+      .toPromise()
+      .then((res) => (this.listSubjects = res as Subject[]));
+  }
   postSubjects(formData: Subject) {
     formData.credit = +formData.credit; //chuyển định dạng về giống trong models
     return this.http.post(this.apiUrl + '/api/Subjects/them', formData);
@@ -125,14 +134,5 @@ export class ProductService {
   }
   deleteSubject(id: string) {
     return this.http.delete(this.apiUrl + '/api/Subjects/xoa/' + id);
-  }
-  //kế hoạch
-  getAllSubject(): Observable<any> {
-    let cloneHeader: any = {};
-    cloneHeader['Content-Type'] = 'application/json';
-    const headerOptions = new HttpHeaders(cloneHeader);
-    return this.http.get(this.apiUrl + '/api/Plans', {
-      headers: headerOptions,
-    });
   }
 }

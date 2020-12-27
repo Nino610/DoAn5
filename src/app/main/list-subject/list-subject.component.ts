@@ -58,7 +58,7 @@ export class ListSubjectComponent implements OnInit {
 
   ngOnInit() {
     this.resetForm();
-    this.service.getAllSubject();
+    this.service.getSubjects();
     //console.log(this.authenticationService.userValue);
   }
   //import excel
@@ -90,20 +90,20 @@ export class ListSubjectComponent implements OnInit {
       credit: 0,
       departmentId: '',
     };
-    this.service.formDataEmployee = {
-      employeeId: '',
-      departmentId: '',
-      fullName: '',
-      gender: true,
-      birthday: '',
-      address: '',
-      email: '',
-      phoneNumber: '',
-      password: '',
-      photo: '',
-      token: '',
-      role: '',
-    };
+    // this.service.formDataEmployee = {
+    //   employeeId: '',
+    //   departmentId: '',
+    //   fullName: '',
+    //   gender: true,
+    //   birthday: '',
+    //   address: '',
+    //   email: '',
+    //   phoneNumber: '',
+    //   password: '',
+    //   photo: '',
+    //   token: '',
+    //   role: '',
+    // };
   }
   onSubmit(form: NgForm) {
     this.insertRecord(form);

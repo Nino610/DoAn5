@@ -84,17 +84,18 @@
                 <td><b>Chức năng</b></td>
             </thead>
             <tbody>
-                <tr style="text-align: center" *ngFor="let sub of service.listSubjects|filter:searchText | paginate:{id:'listing_pagination',
+                <tr style="text-align: center" *ngFor="let empl of service.listEmployees|filter:searchText | paginate:{id:'listing_pagination',
                  itemsPerPage: subsl, currentPage:page,totalItems:totalRecords} ">
-                    <td>{{ sub.subjectId }}</td>
-                    <td>{{ sub.departmentId }}</td>
-                    <td>{{ sub.subjectName }}</td>
-                    <td>{{ sub.credit }}</td>
-                    <td>
+                    <td>{{ empl.employeeId }}</td>
+                    <td>{{ empl.departmentId }}</td>
+                    <td>{{ empl.fullName }}</td>
+                    <td>{{ empl.gender }}</td>
+                    <td>{{empl.address}}</td>
+                    <!-- <td>
                         <button (click)="updateform(sub)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-pencil"></i>Sửa</button>
                         <button (click)="formdetails(sub)" style="margin-left: 5px;" type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalDetails"><i class="pi pi-eye"></i>Chi tiết</button>
                         <button (click)="delete(sub.subjectId)" style="margin-left: 5px;" type="button" class="btn btn-danger"><i class="pi pi-trash"></i>Xóa</button>
-                    </td>
+                    </td> -->
                 </tr>
             </tbody>
         </table>
@@ -106,7 +107,7 @@
     </div>
 
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -206,4 +207,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

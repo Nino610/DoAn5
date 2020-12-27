@@ -18,13 +18,13 @@
             <form *ngIf="userDetails" #form="ngForm" (submit)="onSubmit(form)" class="needs-validation" novalidate>
                 <input type="text" disabled name="password">
                 <div class="form-row">
-                    <div class="col-md-6 mb-3">
+                    <!-- <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Mã bộ môn: </label>
-                        <input disabled name="departmentId" style="width: 150px;" class="form-control" [(ngModel)]="userDetails.departmentId" placeholder="Mã giảng viên" required>
+                        <input disabled name="departmentId" style="width: 150px;" class="form-control" [(ngModel)]="service.formDataEmployee.departmentId" placeholder="Mã giảng viên" required>
                         <div class="invalid-feedback">
                             Vui lòng điền dữ liệu!
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Mã giảng viên: </label>
                         <input disabled name="employeeId" #employeeId="ngModel" [(ngModel)]="userDetails.employeeId" style="width: 150px;" class="form-control" required>
