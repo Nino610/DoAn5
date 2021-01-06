@@ -5,3 +5,7 @@
     <span *ngIf="progress > 0">{{ progress }}%</span>
     <span *ngIf="message"></span>
 </div>
+<div>
+    <p-fileUpload label="Chọn" (change)="changePhoto()" [(ngModel)]="photo" name="photo" mode="basic" name="demo[]" accept="image/*" maxFileSize="1000000">
+    </p-fileUpload>
+</div>

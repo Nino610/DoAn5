@@ -10,6 +10,12 @@ exports.ProductService = void 0;
 var http_1 = require("@angular/common/http");
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var operators_1 = require("rxjs/operators");
+var httpOptions = {
+    headers: new http_1.HttpHeaders({
+        'Content-Type': 'application/json'
+    })
+};
 var ProductService = /** @class */ (function () {
     function ProductService(http, fb) {
         this.http = http;
@@ -83,6 +89,22 @@ var ProductService = /** @class */ (function () {
         //formData.phoneNumber = +formData.phoneNumber;
         return this.http.put(this.apiUrl + '/api/Employees/sua/' + formDataEmployee.employeeId, formDataEmployee);
     };
+    ProductService.prototype.getEmployeeByID = function (id) {
+        var cloneHeader = {};
+        cloneHeader['Content-Type'] = 'application/json';
+        var headerOptions = new http_1.HttpHeaders(cloneHeader);
+        return this.http
+            .get('http://localhost:44399/api/Employees/' + id, {
+            headers: headerOptions
+        })
+            .pipe(operators_1.first());
+    };
+    // getAllSubject() : Observable<any>{
+    //   let cloneHeader: any = {};
+    //   cloneHeader['Content-Type'] = 'application/json';
+    //   const headerOptions = new HttpHeaders(cloneHeader);
+    //   return this.http.get(this.apiUrl + '/api/Employees', { headers: headerOptions }).pipe(first());
+    // }
     // subject: môn học
     ProductService.prototype.getSubjects = function () {
         var _this = this;
@@ -91,20 +113,13 @@ var ProductService = /** @class */ (function () {
             .toPromise()
             .then(function (res) { return (_this.listSubjects = res); });
     };
-    // getAllSubject(): Observable<any> {
-    //   let cloneHeader: any = {};
-    //   cloneHeader['Content-Type'] = 'application/json';
-    //   const headerOptions = new HttpHeaders(cloneHeader);
-    //   return this.http
-    //     .get(this.apiUrl + '/api/Plans', { headers: headerOptions })
-    //     .pipe(first());
-    // }
-    // getDetailsSubjects(formData: Subject) {
-    //   this.http
-    //     .get(this.apiUrl + '/api/Subjects' + formData.subjectId)
-    //     .toPromise()
-    //     .then((res) => (this.listSubjects = res as Subject[]));
-    // }
+    ProductService.prototype.getDetailsSubjects = function (formData) {
+        var _this = this;
+        this.http
+            .get(this.apiUrl + '/api/Subjects' + formData.subjectId)
+            .toPromise()
+            .then(function (res) { return (_this.listSubjects = res); });
+    };
     ProductService.prototype.postSubjects = function (formData) {
         formData.credit = +formData.credit; //chuyển định dạng về giống trong models
         return this.http.post(this.apiUrl + '/api/Subjects/them', formData);
@@ -116,15 +131,66 @@ var ProductService = /** @class */ (function () {
     ProductService.prototype.deleteSubject = function (id) {
         return this.http["delete"](this.apiUrl + '/api/Subjects/xoa/' + id);
     };
-    //kế hoạch
-    ProductService.prototype.getAllSubject = function () {
+    // phiếu khảo sát
+    ProductService.prototype.getAllPhieuKhaoSatSv = function () {
         var cloneHeader = {};
         cloneHeader['Content-Type'] = 'application/json';
         var headerOptions = new http_1.HttpHeaders(cloneHeader);
-        return this.http.get(this.apiUrl + '/api/Plans', {
+        return this.http
+            .get('http://localhost:44399/api/Questions/Sv', {
             headers: headerOptions
-        });
+        })
+            .pipe(operators_1.first());
     };
+    ProductService.prototype.GetPlanByID = function (id) {
+        var cloneHeader = {};
+        cloneHeader['Content-Type'] = 'application/json';
+        var headerOptions = new http_1.HttpHeaders(cloneHeader);
+        return this.http
+            .get('http://localhost:44399/api/Plans/' + id, { headers: headerOptions })
+            .pipe(operators_1.first());
+    };
+    ProductService.prototype.getAllPhieuKhaoSatGv = function () {
+        var cloneHeader = {};
+        cloneHeader['Content-Type'] = 'application/json';
+        var headerOptions = new http_1.HttpHeaders(cloneHeader);
+        return this.http
+            .get('http://localhost:44399/api/Questions/Gv', {
+            headers: headerOptions
+        })
+            .pipe(operators_1.first());
+    };
+    ProductService.prototype.postAnswer = function (order) {
+        var url = this.apiUrl + "/api/Answers";
+        var orderString = JSON.stringify(order);
+        return this.http.post(url, orderString, httpOptions);
+    };
+    ProductService.prototype.getStudentByID = function (id) {
+        var cloneHeader = {};
+        cloneHeader['Content-Type'] = 'application/json';
+        var headerOptions = new http_1.HttpHeaders(cloneHeader);
+        return this.http
+            .get('http://localhost:44399/api/Employees/' + id, {
+            headers: headerOptions
+        })
+            .pipe(operators_1.first());
+    };
+    ProductService.prototype.UpdateInfor = function (id, student) {
+        var url = this.apiUrl + "/api/Employees/" + id;
+        var studentString = JSON.stringify(student);
+        return this.http.put(url, studentString, httpOptions);
+    };
+    ProductService.prototype.update = function (id, data) {
+        return this.http.put(this.apiUrl + "/api/Employees/put/" + id, data);
+    };
+    Object.defineProperty(ProductService.prototype, "valueUser", {
+        get: function () {
+            return this.frmstudent;
+            console.log(this.frmstudent);
+        },
+        enumerable: false,
+        configurable: true
+    });
     ProductService = __decorate([
         core_1.Injectable({ providedIn: 'root' })
     ], ProductService);

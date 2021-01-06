@@ -43,7 +43,7 @@ var DashboardComponent = /** @class */ (function () {
     }
     DashboardComponent.prototype.ngOnInit = function () {
         // this.productService.getProducts().then((data) => (this.products = data));
-        console.log(this.authenticationService.userValue);
+        // console.log(this.authenticationService.userValue);
     };
     DashboardComponent.prototype.openNew = function () {
         this.product = {};

@@ -25,11 +25,10 @@ var CalendarComponent = /** @class */ (function () {
         ];
     }
     CalendarComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.service.getSubjects();
-        this.service.getAllSubject().subscribe(function (res) {
-            _this.subjects = res;
-        });
+        // this.service.getAllSubject().subscribe((res) => {
+        //   this.subjects = res;
+        // });
     };
     CalendarComponent.prototype.onFileChange = function (evt) {
         var _this = this;

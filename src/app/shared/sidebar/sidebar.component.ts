@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { ProductService } from '../../productservice';
+import { AuthenticationService } from 'src/app/lib/authentication.service';
 declare let $: any;
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -11,31 +13,20 @@ declare let $: any;
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
   userDetails;
+  employee: any;
+  tmp: string;
+  photo: any;
+  fullname: any;
   private userSubject: BehaviorSubject<User>;
-  public menus = [
-    {
-      name: 'Người dùng',
-      url: '',
-      icon: 'user',
-      childs: [
-        { name: 'Quản lý người dùng', url: 'user/user' },
-        { name: 'Đăng xuất', url: '' },
-        { name: 'Đăng nhập', url: '/login' },
-      ],
-    },
-    {
-      name: 'Hàng hóa',
-      url: '',
-      icon: 'signal',
-      childs: [
-        { name: 'Quản lý đơn hàng', url: '/product/order' },
-        { name: 'Quản lý loại hàng', url: '/product/type' },
-        { name: 'Quản lý sản phẩm', url: '/product/product' },
-      ],
-    },
-  ];
-  constructor(private router: Router, public service: ProductService) {}
+  constructor(
+    private router: Router,
+    private AuthenticationService: AuthenticationService,
+    public service: ProductService
+  ) {}
   ngOnInit(): void {
+    this.employee = localStorage.getItem('employeeId');
+    console.log(this.photo);
+    //this.employee = 'B1001';
     this.service.getuserprofile().subscribe(
       (res) => {
         this.userDetails = res;
@@ -45,6 +36,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         console.log(err);
       }
     );
+    this.service.getEmployeeByID(this.employee).subscribe((res) => {
+      this.fullname = res;
+      console.log(this.fullname);
+    });
   }
   ngAfterViewInit() {
     $('#sidebar-collapse').click(function () {
@@ -90,5 +85,27 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     // remove user from local storage to log user out
     localStorage.removeItem('token');
     this.userSubject.next(null);
+  }
+  changePhoto() {
+    let tmp = {
+      employeeId: this.employee,
+      fullName: this.userDetails.fullName,
+      gender: this.userDetails.gender,
+      email: this.userDetails.email,
+      departmentId: this.userDetails.departmentId,
+      photo: this.photo,
+      password: this.userDetails.password,
+      phoneNumber: this.userDetails.phoneNumber,
+      birthday: this.userDetails.birthday,
+      address: this.userDetails.address,
+    };
+    this.service.update(this.employee, tmp).subscribe(
+      (res) => {
+        alert('Update thành công');
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

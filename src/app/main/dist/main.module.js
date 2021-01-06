@@ -73,6 +73,7 @@ var list_subject_component_1 = require("./list-subject/list-subject.component");
 var calendar_component_1 = require("./calendar/calendar.component");
 var ng2_search_filter_1 = require("ng2-search-filter");
 var profile_user_component_1 = require("./profile-user/profile-user.component");
+var list_employee_component_1 = require("./list-employee/list-employee.component");
 exports.mainRoutes = [
     {
         path: '',
@@ -95,8 +96,18 @@ exports.mainRoutes = [
                 component: profile_user_component_1.ProfileUserComponent
             },
             {
+                path: 'listemployee',
+                component: list_employee_component_1.ListEmployeeComponent
+            },
+            {
                 path: 'not-found',
                 component: file_not_found_component_1.FileNotFoundComponent
+            },
+            {
+                path: 'questionnaire',
+                loadChildren: function () {
+                    return Promise.resolve().then(function () { return require('./questionnaire/questionnaire.module'); }).then(function (m) { return m.QuestionnaireModule; });
+                }
             },
             {
                 path: 'unauthorized',
@@ -119,6 +130,7 @@ var MainModule = /** @class */ (function () {
                 list_subject_component_1.ListSubjectComponent,
                 calendar_component_1.CalendarComponent,
                 profile_user_component_1.ProfileUserComponent,
+                list_employee_component_1.ListEmployeeComponent,
             ],
             imports: [
                 shared_module_1.SharedModule,

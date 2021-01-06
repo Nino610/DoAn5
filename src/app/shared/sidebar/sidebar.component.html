@@ -7,7 +7,7 @@
         border-radius: 50%;
         cursor: pointer;
     }
-
+    
     .image:hover .uploads {
         display: block;
         cursor: pointer;
@@ -28,20 +28,20 @@
                     <a [routerLink]="[ '/Avatar'] ">
                         <img style=" padding-left: 43px; padding-top: 42px; " src="/assets/images/icon/camera.png " alt="John Doe " />
                     </a>
-                    <!-- <input type="file " id="avatar " name="avatar " accept="image/png, image/jpeg "> -->
                 </div>
             </div>
-            <h4 class="name ">{{ userDetails.fullName }}</h4>
+            <h4 class="name">{{ userDetails.fullName }}</h4>
+            <p-fileUpload label="Chọn" (change)="changePhoto()" ngDefaultControl [(ngModel)]="photo" name="photo" mode="basic" accept="image/*" maxFileSize="1000000">
+            </p-fileUpload>
             <button (click)="logout() ">Đăng xuất</button>
             <!-- <button (click)="remove() ">Xóa tài khoản</button> -->
 
         </div>
-        <nav class="navbar-sidebar2 ">
+        <nav class="navbar-sidebar2">
             <ul class="list-unstyled navbar__list ">
                 <li class="active has-sub ">
                     <a class="js-arrow " [routerLink]="[ '/'] " style="color: #045270; ">
                         <i class="pi pi-home "></i>Dashboard
-
                     </a>
                 </li>
                 <li class="active has-sub ">
@@ -49,6 +49,7 @@
                         <i class="pi pi-list "></i>Danh sách học phần
                     </a>
                 </li>
+
                 <li class="active has-sub ">
                     <a style="text-decoration: none; " class="js-arrow " [routerLink]="[ '/listemployee']">
                         <i class="pi pi-calendar-minus "></i>Danh sách giáo viên

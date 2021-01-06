@@ -99,6 +99,13 @@ export const mainRoutes: Routes = [
         component: FileNotFoundComponent,
       },
       {
+        path: 'questionnaire',
+        loadChildren: () =>
+          import('./questionnaire/questionnaire.module').then(
+            (m) => m.QuestionnaireModule
+          ),
+      },
+      {
         path: 'unauthorized',
         component: UnauthorizedComponent,
       },

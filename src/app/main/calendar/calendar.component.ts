@@ -41,9 +41,9 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.service.getSubjects();
-    this.service.getAllSubject().subscribe((res) => {
-      this.subjects = res;
-    });
+    // this.service.getAllSubject().subscribe((res) => {
+    //   this.subjects = res;
+    // });
   }
 
   onFileChange(evt: any) {

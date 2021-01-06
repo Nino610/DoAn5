@@ -16,7 +16,6 @@
 
     <!-- PAGE CONTAINER-->
     <div class="page-container2">
-
         <!-- BREADCRUMB-->
         <section class="au-breadcrumb m-t-75">
             <div class="section__content section__content--p30">
@@ -41,7 +40,7 @@
                                         <mat-label>Học kỳ</mat-label>
                                         <mat-select>
                                             <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                {{food.viewValue}}
+                                                {{ food.viewValue }}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
@@ -54,17 +53,19 @@
         </section>
         <!-- END BREADCRUMB-->
         <br />
-        <button style="margin-left: 50px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-plus"></i>Thêm</button>
-        <input type="file" (change)="onFileChange($event)" style="width: 100px; padding-left: 50px;" multiple="false">
-        <select style="float:right" #luachon (change)="updateValue(luachon.value)">
-          <option selected value="3" >--Sắp xếp số lượng--</option>
-          <option value="2" >2</option>
-          <option value="5" >5</option>
-          <option value="8" >8</option>
-          <option value="10" >10</option>
-        </select>
+        <button style="margin-left: 50px" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+      <i class="pi pi-plus"></i>Thêm
+    </button>
+        <input type="file" (change)="onFileChange($event)" style="width: 100px; padding-left: 50px" multiple="false" />
+        <select style="float: right" #luachon (change)="updateValue(luachon.value)">
+      <option selected value="3">--Sắp xếp số lượng--</option>
+      <option value="2">2</option>
+      <option value="5">5</option>
+      <option value="8">8</option>
+      <option value="10">10</option>
+    </select>
         <br />
-        <input style="width: 800px;margin-top: 10px;margin-left: 100px;" class="form-control" type="text" [(ngModel)]="searchText" name="search" autocomplete="off" placeholder="&#61442; Tìm kiếm">
+        <input style="width: 800px; margin-top: 10px; margin-left: 100px" class="form-control" type="text" [(ngModel)]="searchText" name="search" autocomplete="off" placeholder="&#61442; Tìm kiếm" />
         <div>
             <table>
                 <tr *ngFor="let row of dataExcel">
@@ -74,40 +75,54 @@
                 </tr>
             </table>
         </div>
-        <br/>
-        <table class="table table-hover ">
+        <br />
+        <table class="table table-hover">
             <thead style="text-align: center">
-                <td><b>Mã môn học</b></td>
-                <td><b>Mã bộ môn</b></td>
-                <td><b>Tên môn học</b></td>
-                <td><b>Số tín chỉ</b></td>
+                <td><b>Mã giáo viên</b></td>
+                <td><b>Tên giáo viên</b></td>
+                <td><b>Ngày sinh</b></td>
+                <td><b>Địa chỉ</b></td>
+                <td><b>Số điện thoại</b></td>
+                <td><b>Ảnh</b></td>
                 <td><b>Chức năng</b></td>
             </thead>
             <tbody>
-                <tr style="text-align: center" *ngFor="let empl of service.listEmployees|filter:searchText | paginate:{id:'listing_pagination',
-                 itemsPerPage: subsl, currentPage:page,totalItems:totalRecords} ">
+                <tr style="text-align: center" *ngFor="
+            let empl of service.listEmployees
+              | filter: searchText
+              | paginate
+                : {
+                    id: 'listing_pagination',
+                    itemsPerPage: subsl,
+                    currentPage: page,
+                    totalItems: totalRecords
+                  }">
                     <td>{{ empl.employeeId }}</td>
-                    <td>{{ empl.departmentId }}</td>
                     <td>{{ empl.fullName }}</td>
-                    <td>{{ empl.gender }}</td>
-                    <td>{{empl.address}}</td>
-                    <!-- <td>
-                        <button (click)="updateform(sub)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="pi pi-pencil"></i>Sửa</button>
-                        <button (click)="formdetails(sub)" style="margin-left: 5px;" type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalDetails"><i class="pi pi-eye"></i>Chi tiết</button>
-                        <button (click)="delete(sub.subjectId)" style="margin-left: 5px;" type="button" class="btn btn-danger"><i class="pi pi-trash"></i>Xóa</button>
-                    </td> -->
+                    <td>{{ empl.birthday }}</td>
+                    <td>{{ empl.address }}</td>
+                    <td>{{ empl.phoneNumber }}</td>
+                    <td>
+                        <img style="width: 100px" src="/assets/images/{{ empl.photo }} " alt="John Doe " />
+                    </td>
+                    <td>
+                        <button [routerLink]="['/questionnaire/questionnaire-1/3',empl.employeeId]" style="margin-left: 5px;" type="button" class="btn btn-info"><i
+                          class="pi pi-pencil"></i></button>
+                        <button style="margin-left: 5px" type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalDetails">
+              <i class="pi pi-eye"></i>Chi tiết
+            </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
 
-        <div style=" padding-left: 300px;">
-            <pagination-controls id="listing_pagination" maxSize="5" direclinks="true" (pageChange)="page=$event"></pagination-controls>
+        <div style="padding-left: 300px">
+            <pagination-controls id="listing_pagination" maxSize="5" direclinks="true" (pageChange)="page = $event"></pagination-controls>
         </div>
         <!-- END STATISTIC-->
     </div>
-
 </div>
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -117,7 +132,7 @@
         </button>
             </div>
             <div class="modal-body">
-                <form #form="ngForm" (submit)="onSubmit(form)" class="needs-validation" novalidate>
+                <!-- <form #form="ngForm" (submit)="onSubmit(form)" class="needs-validation" novalidate>
                     <input type="hidden" name="subjectId" #subjectId="ngModel" [(ngModel)]="service.formData.subjectId">
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
@@ -153,7 +168,7 @@
                     </div>
                     <button [disabled]="form.invalid" class="btn btn-primary" type="submit">Xác nhận</button>
                     <button (click)="resetForm()" style="float: right;" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                </form>
+                </form> -->
             </div>
         </div>
     </div>
@@ -164,11 +179,11 @@
             <div class="modal-header">
                 <h2 class="modal-title" id="exampleModalLabel">Thông tin chi tiết</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+          <span aria-hidden="true">&times;</span>
+        </button>
             </div>
             <div class="modal-body">
-                <form #form="ngForm" (submit)="onSubmit(form)" class="needs-validation" novalidate>
+                <!-- <form #form="ngForm" (submit)="onSubmit(form)" class="needs-validation" novalidate>
                     <input type="hidden" name="subjectId" #subjectId="ngModel" [(ngModel)]="service.formData.subjectId">
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
@@ -203,8 +218,8 @@
                         </div>
                     </div>
                     <button style="float: right;" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                </form>
+                </form> -->
             </div>
         </div>
     </div>
-</div> -->
+</div>

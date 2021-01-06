@@ -1,0 +1,97 @@
+<style>
+    .page-wrapper {
+        overflow: auto;
+        background: #ffffff;
+        padding-bottom: 12vh;
+    }
+
+    .p-field-radiobutton label {
+        position: relative;
+        top: 8px;
+        left: 8px;
+    }
+
+    .p-button-label {
+        flex: 1 1 auto;
+        font-size: 15px !important;
+    }
+</style>
+
+<div class="page-wrapper">
+    <!-- MENU SIDEBAR-->
+
+    <!-- END MENU SIDEBAR-->
+
+    <!-- PAGE CONTAINER-->
+    <div class="page-container2">
+
+        <!-- BREADCRUMB-->
+        <section class="au-breadcrumb m-t-75">
+            <div class="section__content section__content--p30">
+                <div style="margin-top: 280px;" class="container-fluid">
+                    <div class="col-sm-12">
+                        <h1 style="margin-left: 300px;">PHIẾU KHẢO SÁT CHẤT LƯỢNG GIẢNG DẠY</h1>
+                        <h3 style="margin-left: 400px; display: inline;">Học kì:{{obj.semester}}</h3>
+                        <h3 style="display: inline-block; margin-left: 50px;"> Năm học: {{obj.year}}</h3>
+                    </div>
+                    <div class="container">
+                        <p style="font-size: 15px;display: block; margin-block-start: 1em;margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px;">
+                            Mã Giáo Viên:
+                            <span id="ContentMain_lblEmployeeID" class="employeeid" style="font-weight:bold; padding-right: 100px;">{{obj.employeeId}}</span> Họ và tên giảng viên:
+                            <span id="ContentMain_lblFullName" style="font-weight:bold;" *ngIf="obj">{{obj.employee.fullName}}</span>
+                        </p>
+                        <p style="display: block; margin-block-start: 1em;margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px;">
+                            Mã Học Phần:
+                            <span id="ContentMain_lblSubjectID" class="subjectid" style="font-weight:bold; padding-right: 100px;">{{obj.subjectId}}</span>Tên học phần:
+                            <span id="ContentMain_lblSubjectName" style="font-weight:bold;" *ngIf="obj">{{obj.subject.subjectName}}</span>
+                        </p>
+                        <p>
+                            Số tín chỉ:
+                            <span id="ContentMain_lblSubjectID" class="subjectid" style="font-weight:bold; padding-right: 100px;">{{obj.subject.credit}}
+              </span>
+                        </p>
+                        <br>
+                        <h3 style="font-weight: bold;">Trả lời các câu hỏi sau đây bằng cách Click chọn vào ô lựa chọn tương ứng:
+                        </h3>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <br />
+        <br />
+
+
+    </div>
+</div>
+
+<div class="page-wrapper" style="position: relative; bottom: 200px;">
+    <div class="page-container2">
+        <section class="au-breadcrumb m-t-75">
+            <div class="container-fluid">
+                <div class="card2" style="margin-left: 30px;">
+
+                    <div id="questions">
+
+                        <div id="q1" *ngFor="let item of phieukhaosats; index as i">
+                            <div class="q-content">{{item.questionOrder}}. {{item.content}}</div>
+
+                            <div class="q-option" *ngFor="let o of item.options" [attr.name]="item.questionId">
+                                <div class="p-field-radiobutton">
+                                    <input type="hidden" [(ngModel)]="item.questionId" [value]="item.questionId">
+                                    <p-radioButton name={{item.questionId}} inputId="{{item.questionId}}{{o.optionId}}" [value]="o.value" [(ngModel)]="item.answervalue"></p-radioButton>
+                                    <label [for]="o.questionId">{{o.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-field p-col-12" style="margin-top: 50px;">
+                            <label for="nhanxet" style="display: block;">33. Bạn hãy viết bất kì nhận xét gì mà bạn cảm thấy giúp cho việc giảng dạy và học tập môn học này tốt hơn.</label>
+                            <textarea [rows]="5" [(ngModel)]="nhanxet" id="nhanxet" [cols]="60" pInputTextarea autoResize="autoResize"></textarea>
+                        </div>
+                        <button (click)="complete()" style="margin-top: 50px;" pButton pRipple type="button" label="Submit" class="p-button-raised p-button-success"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

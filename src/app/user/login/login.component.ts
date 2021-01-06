@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
     employeeId: '',
     password: '',
   };
+  employeeId: string;
   constructor(
     private service: ProductService,
     private router: Router,
@@ -28,6 +29,8 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         localStorage.setItem('token', res.token);
         this.router.navigateByUrl('');
+        this.employeeId = form.value.employeeId;
+        localStorage.setItem('employeeId', this.employeeId);
       },
       (err) => {
         if (err.status === 400)

@@ -3,12 +3,19 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 import { Employee } from './models/employees';
 import { NgForm } from '@angular/forms';
 import { Subject } from './models/subjects';
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+};
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   //id = 'K1006';
+  public frmstudent: any;
   private userSubject: BehaviorSubject<Employee>;
   public user: Observable<Employee>;
   formData: Subject;
@@ -94,12 +101,22 @@ export class ProductService {
       formDataEmployee
     );
   }
-  getAllSubject() : Observable<any>{
+  getEmployeeByID(id): Observable<any> {
     let cloneHeader: any = {};
     cloneHeader['Content-Type'] = 'application/json';
     const headerOptions = new HttpHeaders(cloneHeader);
-    return this._http.get(this.apiUrl + '/api/Employees', { headers: headerOptions }).pipe(first());      
+    return this.http
+      .get('http://localhost:44399/api/Employees/' + id, {
+        headers: headerOptions,
+      })
+      .pipe(first());
   }
+  // getAllSubject() : Observable<any>{
+  //   let cloneHeader: any = {};
+  //   cloneHeader['Content-Type'] = 'application/json';
+  //   const headerOptions = new HttpHeaders(cloneHeader);
+  //   return this.http.get(this.apiUrl + '/api/Employees', { headers: headerOptions }).pipe(first());
+  // }
   // subject: môn học
   getSubjects() {
     this.http
@@ -107,14 +124,6 @@ export class ProductService {
       .toPromise()
       .then((res) => (this.listSubjects = res as Subject[]));
   }
-  // getAllSubject(): Observable<any> {
-  //   let cloneHeader: any = {};
-  //   cloneHeader['Content-Type'] = 'application/json';
-  //   const headerOptions = new HttpHeaders(cloneHeader);
-  //   return this.http
-  //     .get(this.apiUrl + '/api/Plans', { headers: headerOptions })
-  //     .pipe(first());
-  // }
   getDetailsSubjects(formData: Subject) {
     this.http
       .get(this.apiUrl + '/api/Subjects' + formData.subjectId)
@@ -134,5 +143,68 @@ export class ProductService {
   }
   deleteSubject(id: string) {
     return this.http.delete(this.apiUrl + '/api/Subjects/xoa/' + id);
+  }
+  // phiếu khảo sát
+  getAllPhieuKhaoSatSv(): Observable<any> {
+    let cloneHeader: any = {};
+    cloneHeader['Content-Type'] = 'application/json';
+    const headerOptions = new HttpHeaders(cloneHeader);
+    return this.http
+      .get('http://localhost:44399/api/Questions/Sv', {
+        headers: headerOptions,
+      })
+      .pipe(first());
+  }
+
+  GetPlanByID(id: any) {
+    let cloneHeader: any = {};
+    cloneHeader['Content-Type'] = 'application/json';
+    const headerOptions = new HttpHeaders(cloneHeader);
+    return this.http
+      .get('http://localhost:44399/api/Plans/' + id, { headers: headerOptions })
+      .pipe(first());
+  }
+
+  getAllPhieuKhaoSatGv(): Observable<any> {
+    let cloneHeader: any = {};
+    cloneHeader['Content-Type'] = 'application/json';
+    const headerOptions = new HttpHeaders(cloneHeader);
+    return this.http
+      .get('http://localhost:44399/api/Questions/Gv', {
+        headers: headerOptions,
+      })
+      .pipe(first());
+  }
+
+  postAnswer(order: any): Observable<number> {
+    const url = `${this.apiUrl}/api/Answers`;
+    var orderString = JSON.stringify(order);
+    return this.http.post<any>(url, orderString, httpOptions);
+  }
+
+  getStudentByID(id): Observable<any> {
+    let cloneHeader: any = {};
+    cloneHeader['Content-Type'] = 'application/json';
+    const headerOptions = new HttpHeaders(cloneHeader);
+    return this.http
+      .get('http://localhost:44399/api/Employees/' + id, {
+        headers: headerOptions,
+      })
+      .pipe(first());
+  }
+
+  UpdateInfor(id, student: any): Observable<number> {
+    const url = `${this.apiUrl}/api/Employees/` + id;
+    var studentString = JSON.stringify(student);
+    return this.http.put<any>(url, studentString, httpOptions);
+  }
+
+  update(id, data): Observable<any> {
+    return this.http.put(`${this.apiUrl}/api/Employees/put/${id}`, data);
+  }
+
+  public get valueUser(): any {
+    return this.frmstudent;
+    console.log(this.frmstudent);
   }
 }

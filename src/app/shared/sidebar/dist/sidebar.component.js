@@ -9,39 +9,25 @@ exports.__esModule = true;
 exports.SidebarComponent = void 0;
 var core_1 = require("@angular/core");
 var SidebarComponent = /** @class */ (function () {
-    function SidebarComponent(router, service) {
+    function SidebarComponent(router, AuthenticationService, service) {
         this.router = router;
+        this.AuthenticationService = AuthenticationService;
         this.service = service;
-        this.menus = [
-            {
-                name: 'Người dùng',
-                url: '',
-                icon: 'user',
-                childs: [
-                    { name: 'Quản lý người dùng', url: 'user/user' },
-                    { name: 'Đăng xuất', url: '' },
-                    { name: 'Đăng nhập', url: '/login' },
-                ]
-            },
-            {
-                name: 'Hàng hóa',
-                url: '',
-                icon: 'signal',
-                childs: [
-                    { name: 'Quản lý đơn hàng', url: '/product/order' },
-                    { name: 'Quản lý loại hàng', url: '/product/type' },
-                    { name: 'Quản lý sản phẩm', url: '/product/product' },
-                ]
-            },
-        ];
     }
     SidebarComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.employee = localStorage.getItem('employeeId');
+        console.log(this.photo);
+        //this.employee = 'B1001';
         this.service.getuserprofile().subscribe(function (res) {
             _this.userDetails = res;
             console.log(res);
         }, function (err) {
             console.log(err);
+        });
+        this.service.getEmployeeByID(this.employee).subscribe(function (res) {
+            _this.fullname = res;
+            console.log(_this.fullname);
         });
     };
     SidebarComponent.prototype.ngAfterViewInit = function () {
@@ -91,6 +77,25 @@ var SidebarComponent = /** @class */ (function () {
         // remove user from local storage to log user out
         localStorage.removeItem('token');
         this.userSubject.next(null);
+    };
+    SidebarComponent.prototype.changePhoto = function () {
+        var tmp = {
+            employeeId: this.employee,
+            fullName: this.userDetails.fullName,
+            gender: this.userDetails.gender,
+            email: this.userDetails.email,
+            departmentId: this.userDetails.departmentId,
+            photo: this.photo,
+            password: this.userDetails.password,
+            phoneNumber: this.userDetails.phoneNumber,
+            birthday: this.userDetails.birthday,
+            address: this.userDetails.address
+        };
+        this.service.update(this.employee, tmp).subscribe(function (res) {
+            alert('Update thành công');
+        }, function (error) {
+            console.log(error);
+        });
     };
     SidebarComponent = __decorate([
         core_1.Component({

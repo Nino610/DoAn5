@@ -10,9 +10,10 @@ exports.AvatarComponent = void 0;
 var http_1 = require("@angular/common/http");
 var core_1 = require("@angular/core");
 var AvatarComponent = /** @class */ (function () {
-    function AvatarComponent(http) {
+    function AvatarComponent(http, service) {
         var _this = this;
         this.http = http;
+        this.service = service;
         this.apiUrl = 'https://localhost:44399';
         this.onUploadFinished = new core_1.EventEmitter();
         this.uploadedFiles = function (files) {
@@ -38,6 +39,28 @@ var AvatarComponent = /** @class */ (function () {
         };
     }
     AvatarComponent.prototype.ngOnInit = function () { };
+    AvatarComponent.prototype.changePhoto = function () {
+        var tmp = {
+            employeeId: this.employee,
+            fullName: this.userDetails.fullName,
+            gender: this.userDetails.gender,
+            email: this.userDetails.email,
+            departmentId: this.userDetails.departmentId,
+            classId: this.userDetails.classId,
+            "class": this.userDetails["class"],
+            scores: this.userDetails.scores,
+            photo: this.photo,
+            password: this.userDetails.password,
+            phoneNumber: this.userDetails.phoneNumber,
+            birthday: this.userDetails.birthday,
+            address: this.userDetails.address
+        };
+        this.service.update(this.employee, tmp).subscribe(function (res) {
+            alert('Update thành công');
+        }, function (error) {
+            console.log(error);
+        });
+    };
     __decorate([
         core_1.Output()
     ], AvatarComponent.prototype, "onUploadFinished");

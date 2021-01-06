@@ -53,7 +53,7 @@ export class DashboardComponent {
 
   ngOnInit() {
     // this.productService.getProducts().then((data) => (this.products = data));
-    console.log(this.authenticationService.userValue);
+    // console.log(this.authenticationService.userValue);
   }
 
   openNew() {
