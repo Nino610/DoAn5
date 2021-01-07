@@ -15,8 +15,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { AvatarComponent } from './user/avatar/avatar.component';
+import { AdminComponent } from './admin/admin.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ThongkeComponent } from './thongke/thongke.component';
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, AvatarComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, AvatarComponent, AdminComponent, ForbiddenComponent, ThongkeComponent],
   imports: [
     SharedModule,
     CommonModule,

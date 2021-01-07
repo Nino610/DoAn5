@@ -7,7 +7,7 @@
         border-radius: 50%;
         cursor: pointer;
     }
-    
+
     .image:hover .uploads {
         display: block;
         cursor: pointer;
@@ -31,8 +31,6 @@
                 </div>
             </div>
             <h4 class="name">{{ userDetails.fullName }}</h4>
-            <p-fileUpload label="Chọn" (change)="changePhoto()" ngDefaultControl [(ngModel)]="photo" name="photo" mode="basic" accept="image/*" maxFileSize="1000000">
-            </p-fileUpload>
             <button (click)="logout() ">Đăng xuất</button>
             <!-- <button (click)="remove() ">Xóa tài khoản</button> -->
 
@@ -49,7 +47,7 @@
                         <i class="pi pi-list "></i>Danh sách học phần
                     </a>
                 </li>
-
+                <button (click)="logout() ">Đăng xuất</button>
                 <li class="active has-sub ">
                     <a style="text-decoration: none; " class="js-arrow " [routerLink]="[ '/listemployee']">
                         <i class="pi pi-calendar-minus "></i>Danh sách giáo viên
@@ -81,7 +79,11 @@
                         <i class="pi pi-key "></i>Thay đổi mật khẩu
                     </a>
                 </li>
-
+                <li class="active has-sub ">
+                    <a style="text-decoration: none; " class="js-arrow " [routerLink]="[ '/thongke'] ">
+                        <i class="pi pi-key "></i>Thống kê
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>

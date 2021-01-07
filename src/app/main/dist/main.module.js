@@ -74,6 +74,7 @@ var calendar_component_1 = require("./calendar/calendar.component");
 var ng2_search_filter_1 = require("ng2-search-filter");
 var profile_user_component_1 = require("./profile-user/profile-user.component");
 var list_employee_component_1 = require("./list-employee/list-employee.component");
+var auth_guard_1 = require("../lib/auth.guard");
 exports.mainRoutes = [
     {
         path: '',
@@ -85,7 +86,9 @@ exports.mainRoutes = [
             },
             {
                 path: 'listsubject',
-                component: list_subject_component_1.ListSubjectComponent
+                component: list_subject_component_1.ListSubjectComponent,
+                canActivate: [auth_guard_1.AuthGuard],
+                data: { permittedRoles: ['CanBo'] }
             },
             {
                 path: 'calendar',
@@ -97,7 +100,9 @@ exports.mainRoutes = [
             },
             {
                 path: 'listemployee',
-                component: list_employee_component_1.ListEmployeeComponent
+                component: list_employee_component_1.ListEmployeeComponent,
+                canActivate: [auth_guard_1.AuthGuard],
+                data: { permittedRoles: ['CanBo'] }
             },
             {
                 path: 'not-found',

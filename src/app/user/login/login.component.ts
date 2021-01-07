@@ -10,10 +10,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
   formModel = {
-    employeeId: '',
+    userName: '',
     password: '',
   };
-  employeeId: string;
+  userId: string;
   constructor(
     private service: ProductService,
     private router: Router,
@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         localStorage.setItem('token', res.token);
         this.router.navigateByUrl('');
-        this.employeeId = form.value.employeeId;
-        localStorage.setItem('employeeId', this.employeeId);
+        this.userId = form.value.userName;
+        localStorage.setItem('userName', this.userId);
       },
       (err) => {
         if (err.status === 400)

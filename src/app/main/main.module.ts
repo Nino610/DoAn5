@@ -69,6 +69,7 @@ import { LoginComponent } from '../user/login/login.component';
 import { RegisterComponent } from '../user/register/register.component';
 import { ProfileUserComponent } from './profile-user/profile-user.component';
 import { ListEmployeeComponent } from './list-employee/list-employee.component';
+import { AuthGuard } from '../lib/auth.guard';
 export const mainRoutes: Routes = [
   {
     path: '',
@@ -81,10 +82,14 @@ export const mainRoutes: Routes = [
       {
         path: 'listsubject',
         component: ListSubjectComponent,
+        // canActivate: [AuthGuard],
+        // data: { permittedRoles: ['1'] },
       },
       {
         path: 'calendar',
         component: CalendarComponent,
+        // canActivate: [AuthGuard],
+        // data: { permittedRoles: ['1','2'] },
       },
       {
         path: 'profile',
@@ -93,6 +98,8 @@ export const mainRoutes: Routes = [
       {
         path: 'listemployee',
         component: ListEmployeeComponent,
+        // canActivate: [AuthGuard],
+        // data: { permittedRoles: ['1'] },
       },
       {
         path: 'not-found',

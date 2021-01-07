@@ -14,11 +14,14 @@ var auth_guard_1 = require("./lib/auth.guard");
 var login_component_1 = require("./user/login/login.component");
 var avatar_component_1 = require("./user/avatar/avatar.component");
 var register_component_1 = require("./user/register/register.component");
+var admin_component_1 = require("./admin/admin.component");
+var forbidden_component_1 = require("./forbidden/forbidden.component");
 var routes = [
     {
         path: '',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./main/main.module'); }).then(function (m) { return m.MainModule; }); },
-        canActivate: [auth_guard_1.AuthGuard]
+        canActivate: [auth_guard_1.AuthGuard],
+        data: { permittedRoles: ['CanBo'] }
     },
     {
         path: 'login',
@@ -31,6 +34,16 @@ var routes = [
     {
         path: 'register',
         component: register_component_1.RegisterComponent
+    },
+    {
+        path: 'forbidden',
+        component: forbidden_component_1.ForbiddenComponent
+    },
+    {
+        path: 'admin',
+        component: admin_component_1.AdminComponent,
+        canActivate: [auth_guard_1.AuthGuard],
+        data: { permittedRoles: ['CanBo'] }
     },
     {
         path: '**',

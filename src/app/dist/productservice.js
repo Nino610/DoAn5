@@ -22,6 +22,7 @@ var ProductService = /** @class */ (function () {
         this.fb = fb;
         this.status = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
         this.apiUrl = 'https://localhost:44399';
+        this.apiputuser = 'https://localhost:44399/api/Employees/sua/';
         //register
         this.formModel = this.fb.group({
             employeeId: ['', forms_1.Validators.required],
@@ -63,7 +64,7 @@ var ProductService = /** @class */ (function () {
             Authorization: 'Bearer ' + localStorage.getItem('token')
         });
         //var name = localStorage.getItem('token');
-        console.log(tokenHeader);
+        //console.log(tokenHeader);
         return this.http.get(this.apiUrl + '/api/UserProfile', {
             headers: tokenHeader
         });
@@ -72,7 +73,7 @@ var ProductService = /** @class */ (function () {
         var tokenHeader = new http_1.HttpHeaders({
             Authorization: 'Bearer ' + localStorage.getItem('token')
         });
-        return this.http.put(this.apiUrl + '/api/Employees/sua/' + this.formDataEmployee.employeeId, {
+        return this.http.put((this.employeeId = localStorage.getItem('employeeId')), this.apiputuser + this.employeeId, {
             headers: tokenHeader
         });
     };
@@ -83,11 +84,10 @@ var ProductService = /** @class */ (function () {
             .get(this.apiUrl + '/api/Employees')
             .toPromise()
             .then(function (res) { return (_this.listEmployees = res); });
-        console.log(this.listEmployees);
     };
     ProductService.prototype.putEmployees = function (formDataEmployee) {
         //formData.phoneNumber = +formData.phoneNumber;
-        return this.http.put(this.apiUrl + '/api/Employees/sua/' + formDataEmployee.employeeId, formDataEmployee);
+        return this.http.put(this.apiUrl + '/api/Employees/sua/' + this.formDataEmployee.employeeId, formDataEmployee);
     };
     ProductService.prototype.getEmployeeByID = function (id) {
         var cloneHeader = {};
@@ -175,13 +175,14 @@ var ProductService = /** @class */ (function () {
         })
             .pipe(operators_1.first());
     };
+    // update thông tin user
     ProductService.prototype.UpdateInfor = function (id, student) {
         var url = this.apiUrl + "/api/Employees/" + id;
         var studentString = JSON.stringify(student);
         return this.http.put(url, studentString, httpOptions);
     };
     ProductService.prototype.update = function (id, data) {
-        return this.http.put(this.apiUrl + "/api/Employees/put/" + id, data);
+        return this.http.put(this.apiUrl + "/api/Employees/sua/" + id, data);
     };
     Object.defineProperty(ProductService.prototype, "valueUser", {
         get: function () {
@@ -191,6 +192,19 @@ var ProductService = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    //phân quyền
+    ProductService.prototype.roleMatch = function (allowedRoles) {
+        var isMatch = false;
+        var payload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+        var userRoles = payload.role;
+        allowedRoles.forEach(function (element) {
+            if (userRoles == element) {
+                isMatch = true;
+                return false;
+            }
+        });
+        return isMatch;
+    };
     ProductService = __decorate([
         core_1.Injectable({ providedIn: 'root' })
     ], ProductService);

@@ -14,7 +14,7 @@ var LoginComponent = /** @class */ (function () {
         this.router = router;
         this.toastr = toastr;
         this.formModel = {
-            employeeId: '',
+            userName: '',
             password: ''
         };
     }
@@ -28,8 +28,8 @@ var LoginComponent = /** @class */ (function () {
         this.service.login(form.value).subscribe(function (res) {
             localStorage.setItem('token', res.token);
             _this.router.navigateByUrl('');
-            _this.employeeId = form.value.employeeId;
-            localStorage.setItem('employeeId', _this.employeeId);
+            _this.userId = form.value.userName;
+            localStorage.setItem('userName', _this.userId);
         }, function (err) {
             if (err.status === 400)
                 _this.toastr.error('Sai tên tài khoản hoặc mật khẩu', 'Đăng nhập thất bại');

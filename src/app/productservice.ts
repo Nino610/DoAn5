@@ -7,6 +7,7 @@ import { first, map } from 'rxjs/operators';
 import { Employee } from './models/employees';
 import { NgForm } from '@angular/forms';
 import { Subject } from './models/subjects';
+import { element } from 'protractor';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -19,12 +20,14 @@ export class ProductService {
   private userSubject: BehaviorSubject<Employee>;
   public user: Observable<Employee>;
   formData: Subject;
+  employeeId: string;
   formDataEmployee: Employee;
   status: string[] = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
   httpClient: any;
   listEmployees: Employee[];
   listSubjects: Subject[];
   readonly apiUrl = 'https://localhost:44399';
+  readonly apiputuser = 'https://localhost:44399/api/Employees/sua/';
   constructor(public http: HttpClient, private fb: FormBuilder) {}
   //register
   formModel = this.fb.group({
@@ -70,7 +73,8 @@ export class ProductService {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
     //var name = localStorage.getItem('token');
-    console.log(tokenHeader);
+    //console.log(tokenHeader);
+
     return this.http.get(this.apiUrl + '/api/UserProfile', {
       headers: tokenHeader,
     });
@@ -80,7 +84,8 @@ export class ProductService {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
     return this.http.put(
-      this.apiUrl + '/api/Employees/sua/' + this.formDataEmployee.employeeId,
+      (this.employeeId = localStorage.getItem('employeeId')),
+      this.apiputuser + this.employeeId,
       {
         headers: tokenHeader,
       }
@@ -92,12 +97,11 @@ export class ProductService {
       .get(this.apiUrl + '/api/Employees')
       .toPromise()
       .then((res) => (this.listEmployees = res as Employee[]));
-    console.log(this.listEmployees);
   }
   putEmployees(formDataEmployee: Employee) {
     //formData.phoneNumber = +formData.phoneNumber;
     return this.http.put(
-      this.apiUrl + '/api/Employees/sua/' + formDataEmployee.employeeId,
+      this.apiUrl + '/api/Employees/sua/' + this.formDataEmployee.employeeId,
       formDataEmployee
     );
   }
@@ -192,7 +196,7 @@ export class ProductService {
       })
       .pipe(first());
   }
-
+  // update thông tin user
   UpdateInfor(id, student: any): Observable<number> {
     const url = `${this.apiUrl}/api/Employees/` + id;
     var studentString = JSON.stringify(student);
@@ -200,11 +204,26 @@ export class ProductService {
   }
 
   update(id, data): Observable<any> {
-    return this.http.put(`${this.apiUrl}/api/Employees/put/${id}`, data);
+    return this.http.put(`${this.apiUrl}/api/Employees/sua/${id}`, data);
   }
 
   public get valueUser(): any {
     return this.frmstudent;
     console.log(this.frmstudent);
+  }
+  //phân quyền
+  roleMatch(allowedRoles): boolean {
+    var isMatch = false;
+    var payload = JSON.parse(
+      window.atob(localStorage.getItem('token').split('.')[1])
+    );
+    var userRoles = payload.role;
+    allowedRoles.forEach((element) => {
+      if (userRoles == element) {
+        isMatch = true;
+        return false;
+      }
+    });
+    return isMatch;
   }
 }

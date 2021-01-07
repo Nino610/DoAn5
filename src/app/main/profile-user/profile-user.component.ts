@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import * as XLSX from 'xlsx';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-profile-user',
   templateUrl: './profile-user.component.html',
@@ -12,10 +13,13 @@ import { Router } from '@angular/router';
 })
 export class ProfileUserComponent implements OnInit {
   userDetails;
+  idst: string;
+  submitted = false;
   constructor(
     public service: ProductService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
   Employee: Employee[];
 
@@ -25,12 +29,39 @@ export class ProfileUserComponent implements OnInit {
     this.service.getuserprofile().subscribe(
       (res) => {
         this.userDetails = res;
-        //this.userDetails = this.service.formDataEmployee;
         console.log(res);
-        //console.log(this.service.formDataEmployee);
       },
       (err) => {
         console.log(err);
+      }
+    );
+  }
+  Update() {
+    this.submitted = true;
+    let tmp = {
+      employeeId: this.userDetails.employeeId,
+      departmentId: this.userDetails.departmentId,
+      fullName: this.userDetails.fullName,
+      gender: this.userDetails.gender,
+      birthday: this.userDetails.birthday,
+      address: this.userDetails.address,
+      email: this.userDetails.email,
+      phoneNumber: this.userDetails.phoneNumber,
+      password: this.userDetails.password,
+      photo: this.userDetails.photo,
+      // token?: string;
+      // role: string;
+    };
+    this.service.update(this.userDetails.employeeId, tmp).subscribe(
+      (res) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Thông báo',
+          detail: 'Sửa thông tin thành công',
+        });
+      },
+      (error) => {
+        console.log(error);
       }
     );
   }
@@ -39,8 +70,7 @@ export class ProfileUserComponent implements OnInit {
     this.service.putuserprofile(form.value).subscribe(
       (res) => {
         this.userDetails = res;
-        this.userDetails = this.service.formDataEmployee;
-        this.resetForm(form);
+        //this.userDetails = this.service.formDataEmployee;
         this.service.getuserprofile();
       },
       (err) => {
@@ -48,29 +78,14 @@ export class ProfileUserComponent implements OnInit {
       }
     );
   }
-  resetForm(form?: NgForm) {
-    if (form != null) form.resetForm();
-    this.service.formDataEmployee = {
-      employeeId: '',
-      departmentId: '',
-      fullName: '',
-      gender: true,
-      birthday: '',
-      address: '',
-      email: '',
-      phoneNumber: '',
-      password: '',
-      photo: '',
-      token: '',
-      role: '',
-    };
-  }
+
   updateform(sub: Employee) {
     this.service.formDataEmployee = Object.assign({}, sub);
   }
   onSubmit(form: NgForm) {
     //this.insertRecord(form);
     //this.toastr.success('Thông báo', 'Thao tác thành công');
-    this.updateRecord(form);
+    this.Update();
+    this.toastr.success('Thông báo', 'Thao tác thành công');
   }
 }

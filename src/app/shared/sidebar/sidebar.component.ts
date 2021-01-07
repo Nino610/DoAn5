@@ -25,12 +25,12 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   ) {}
   ngOnInit(): void {
     this.employee = localStorage.getItem('employeeId');
-    console.log(this.photo);
+
     //this.employee = 'B1001';
     this.service.getuserprofile().subscribe(
       (res) => {
         this.userDetails = res;
-        console.log(res);
+        console.log(this.userDetails.photo);
       },
       (err) => {
         console.log(err);
@@ -38,7 +38,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     );
     this.service.getEmployeeByID(this.employee).subscribe((res) => {
       this.fullname = res;
-      console.log(this.fullname);
     });
   }
   ngAfterViewInit() {
@@ -93,7 +92,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       gender: this.userDetails.gender,
       email: this.userDetails.email,
       departmentId: this.userDetails.departmentId,
-      photo: this.photo,
+      photo: this.photo.split('fakepath\\'),
       password: this.userDetails.password,
       phoneNumber: this.userDetails.phoneNumber,
       birthday: this.userDetails.birthday,

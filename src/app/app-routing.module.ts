@@ -5,12 +5,15 @@ import { AuthGuard } from './lib/auth.guard';
 import { LoginComponent } from './user/login/login.component';
 import { AvatarComponent } from './user/avatar/avatar.component';
 import { RegisterComponent } from './user/register/register.component';
-
+import { AdminComponent } from './admin/admin.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ThongkeComponent } from './thongke/thongke.component';
 const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
+    // data: { permittedRoles: ['1'] },
   },
 
   {
@@ -24,6 +27,22 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'forbidden',
+    component: ForbiddenComponent,
+  },
+  {
+    path: 'thongke',
+    component: ThongkeComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['2'] },
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['1'] },
   },
   {
     path: '**',

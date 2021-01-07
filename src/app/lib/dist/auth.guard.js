@@ -9,13 +9,24 @@ exports.__esModule = true;
 exports.RoleGuard = exports.AuthGuard = void 0;
 var core_1 = require("@angular/core");
 var AuthGuard = /** @class */ (function () {
-    function AuthGuard(router //private authenticationService: AuthenticationService
+    function AuthGuard(router, service //private authenticationService: AuthenticationService
     ) {
         this.router = router;
+        this.service = service;
     }
     AuthGuard.prototype.canActivate = function (route, state) {
         //const user = this.authenticationService.userValue;
         if (localStorage.getItem('token') != null) {
+            var roles = route.data['permittedRoles'];
+            if (roles) {
+                if (roles) {
+                    if (this.service.roleMatch(roles))
+                        return true;
+                    else {
+                        this.router.navigate(['/forbidden']);
+                    }
+                }
+            }
             return true;
         }
         // not logged in so redirect to login page with the return url

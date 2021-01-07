@@ -1,11 +1,10 @@
 <div style="padding: 15px;">
-    <input type="file" #file placeholder="Chọn file ảnh" accept=".jpg" (change)="uploadedFiles(file.files)">
-    <br>
-    <button type="button" class="btn btn-primary" (click)="file.click()">Upload File</button>
-    <span *ngIf="progress > 0">{{ progress }}%</span>
-    <span *ngIf="message"></span>
-</div>
-<div>
-    <p-fileUpload label="Chọn" (change)="changePhoto()" [(ngModel)]="photo" name="photo" mode="basic" name="demo[]" accept="image/*" maxFileSize="1000000">
-    </p-fileUpload>
+    <form #ImageForm=ngForm id="">
+        <!-- <input type="file" #Image placeholder="Chọn file ảnh" accept="image/*" (change)="uploadedFiles(file.files)"> -->
+
+        <br>
+        <button type="submit" class="btn btn-primary">Upload File</button>
+        <span *ngIf="progress > 0">{{ progress }}%</span>
+        <span *ngIf="message"></span>
+    </form>
 </div>

@@ -17,17 +17,15 @@ var SidebarComponent = /** @class */ (function () {
     SidebarComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.employee = localStorage.getItem('employeeId');
-        console.log(this.photo);
         //this.employee = 'B1001';
         this.service.getuserprofile().subscribe(function (res) {
             _this.userDetails = res;
-            console.log(res);
+            console.log(_this.userDetails.photo);
         }, function (err) {
             console.log(err);
         });
         this.service.getEmployeeByID(this.employee).subscribe(function (res) {
             _this.fullname = res;
-            console.log(_this.fullname);
         });
     };
     SidebarComponent.prototype.ngAfterViewInit = function () {
@@ -85,7 +83,7 @@ var SidebarComponent = /** @class */ (function () {
             gender: this.userDetails.gender,
             email: this.userDetails.email,
             departmentId: this.userDetails.departmentId,
-            photo: this.photo,
+            photo: this.photo.split('fakepath\\'),
             password: this.userDetails.password,
             phoneNumber: this.userDetails.phoneNumber,
             birthday: this.userDetails.birthday,

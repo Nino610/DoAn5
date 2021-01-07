@@ -9,6 +9,8 @@ import { ProductService } from '../../productservice';
 })
 export class AvatarComponent implements OnInit {
   userDetails;
+  imageUrl: string = '/assets/images/b1.jpg';
+  fileToUpload: File = null;
   employee: any;
   photo: any;
   public message: string;
