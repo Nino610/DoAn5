@@ -89,6 +89,12 @@ var ProductService = /** @class */ (function () {
         //formData.phoneNumber = +formData.phoneNumber;
         return this.http.put(this.apiUrl + '/api/Employees/sua/' + this.formDataEmployee.employeeId, formDataEmployee);
     };
+    ProductService.prototype.postEmployees = function (formDataEmployee) {
+        return this.http.post(this.apiUrl + '/api/Employees/them', formDataEmployee);
+    };
+    ProductService.prototype.deleteEmployees = function (id) {
+        return this.http["delete"](this.apiUrl + '/api/Employees/xoa/' + id);
+    };
     ProductService.prototype.getEmployeeByID = function (id) {
         var cloneHeader = {};
         cloneHeader['Content-Type'] = 'application/json';
@@ -204,6 +210,34 @@ var ProductService = /** @class */ (function () {
             }
         });
         return isMatch;
+    };
+    //thong ke
+    ProductService.prototype.getClass = function () {
+        var _this = this;
+        this.http
+            .get(this.apiUrl + '/api/Class')
+            .toPromise()
+            .then(function (res) { return (_this.listClass = res); });
+    };
+    ProductService.prototype.getDepartment = function () {
+        var _this = this;
+        this.http
+            .get(this.apiUrl + '/api/Departments')
+            .toPromise()
+            .then(function (res) { return (_this.listDepartment = res); });
+    };
+    ProductService.prototype.getThongKe = function (CLassid, Subjectid, EmployeeId) {
+        var cloneHeader = {};
+        cloneHeader['Content-Type'] = 'application/json';
+        var headerOptions = new http_1.HttpHeaders(cloneHeader);
+        return this.http
+            .get('http://localhost:44399/api/Plans/thongke/' +
+            CLassid +
+            Subjectid +
+            EmployeeId, {
+            headers: headerOptions
+        })
+            .pipe(operators_1.first());
     };
     ProductService = __decorate([
         core_1.Injectable({ providedIn: 'root' })

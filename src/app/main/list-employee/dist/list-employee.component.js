@@ -26,6 +26,51 @@ var ListEmployeeComponent = /** @class */ (function () {
     ListEmployeeComponent.prototype.ngOnInit = function () {
         this.service.getEmployees();
     };
+    ListEmployeeComponent.prototype.onSubmit = function (form) {
+        this.insertRecord(form);
+        this.toastr.success('Thông báo', 'Thao tác thành công');
+        if (form.value.employeeId == null)
+            this.insertRecord(form);
+        else
+            this.updateRecord(form);
+    };
+    ListEmployeeComponent.prototype.resetForm = function (form) {
+        if (form != null)
+            form.resetForm();
+        this.service.formDataEmployee = {
+            employeeId: '',
+            departmentId: '',
+            fullName: '',
+            gender: true,
+            birthday: '',
+            address: '',
+            email: '',
+            phoneNumber: '',
+            password: '',
+            photo: '',
+            role: ''
+        };
+    };
+    ListEmployeeComponent.prototype.insertRecord = function (form) {
+        var _this = this;
+        //console.log('ffffffff',form.value);
+        this.service.postEmployees(form.value).subscribe(function (res) {
+            _this.resetForm(form);
+            _this.service.getEmployees();
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ListEmployeeComponent.prototype.updateRecord = function (form) {
+        var _this = this;
+        //console.log('ffffffff',form.value);
+        this.service.putEmployees(form.value).subscribe(function (res) {
+            _this.resetForm(form);
+            _this.service.getEmployees();
+        }, function (err) {
+            console.log(err);
+        });
+    };
     //import excel
     ListEmployeeComponent.prototype.onFileChange = function (evt) {
         var _this = this;
@@ -44,8 +89,25 @@ var ListEmployeeComponent = /** @class */ (function () {
         reader.readAsBinaryString(target.files[0]);
         console.log(this.dataExcel);
     };
+    //for chi tiết để sửa
+    //Object.assign() được sử dụng để sao chép các giá trị của tất cả thuộc tính có thể liệt kê từ một hoặc nhiều đối tượng nguồn đến một đối tượng đích. Nó sẽ trả về đối tượng đích đó.
+    ListEmployeeComponent.prototype.formdetails = function (empl) {
+        this.service.formDataEmployee = Object.assign({}, empl);
+    };
+    ListEmployeeComponent.prototype.updateform = function (empl) {
+        this.service.formDataEmployee = Object.assign({}, empl);
+    };
     ListEmployeeComponent.prototype.updateValue = function (value) {
         this.subsl = value;
+    };
+    ListEmployeeComponent.prototype["delete"] = function (id) {
+        var _this = this;
+        if (confirm('Bạn có chắc chắn muốn xóa không')) {
+            this.service.deleteEmployees(id).subscribe(function (res) {
+                _this.service.getEmployees();
+                _this.toastr.warning('Thông báo', 'Thao tác thành công');
+            });
+        }
     };
     ListEmployeeComponent = __decorate([
         core_1.Component({

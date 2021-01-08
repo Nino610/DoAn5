@@ -19,6 +19,11 @@ interface Food {
 export class CalendarComponent implements OnInit {
   productDialog: boolean;
   searchText;
+  thongke = {
+    subjectId: '',
+    classId: '',
+    employeeId: '',
+  };
   //subsl = this.value;
   subsl: '';
   data: Array<any>;
@@ -28,7 +33,9 @@ export class CalendarComponent implements OnInit {
   subjects: any[] = null;
   Subject: Subject;
   submitted: boolean;
-
+  CLassid: string;
+  Subjectid: string;
+  EmployeeId: string;
   foods: Food[] = [
     { value: 'HK1-2018-2019', viewValue: 'Học kỳ 1 - Năm Học 2018-2019' },
     { value: 'HK2-2018-2019', viewValue: 'Học kỳ 2- Năm Học 2018-2019' },
@@ -40,7 +47,10 @@ export class CalendarComponent implements OnInit {
   constructor(public service: ProductService, private toastr: ToastrService) {}
 
   ngOnInit() {
+    this.service.getClass();
+    this.service.getEmployees();
     this.service.getSubjects();
+    this.service.getThongKe(this.CLassid, this.EmployeeId, this.Subjectid);
     // this.service.getAllSubject().subscribe((res) => {
     //   this.subjects = res;
     // });
@@ -89,10 +99,13 @@ export class CalendarComponent implements OnInit {
     };
   }
   onSubmit(form: NgForm) {
-    this.insertRecord(form);
-    this.toastr.success('Thông báo', 'Thao tác thành công');
-    if (form.value.subjectId == null) this.insertRecord(form);
-    else this.updateRecord(form);
+    // this.insertRecord(form);
+    // this.toastr.success('Thông báo', 'Thao tác thành công');
+    // if (form.value.subjectId == null) this.insertRecord(form);
+    // else this.updateRecord(form);
+
+    this.service.getThongKe(this.CLassid, this.Subjectid, this.EmployeeId);
+    console.log(this.thongke);
   }
 
   insertRecord(form: NgForm) {

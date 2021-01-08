@@ -36,12 +36,60 @@ export class ListEmployeeComponent implements OnInit {
     { value: 'HK2-2020-2021', viewValue: 'Học kỳ 2 - Năm Học 2020-2021' },
   ];
   submitted: boolean;
+  formDataEmployee: Employee;
   Subjects: Subject[];
   Subject: Subject;
+  Employee: Employee;
   constructor(public service: ProductService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.service.getEmployees();
+  }
+  onSubmit(form: NgForm) {
+    this.insertRecord(form);
+    this.toastr.success('Thông báo', 'Thao tác thành công');
+    if (form.value.employeeId == null) this.insertRecord(form);
+    else this.updateRecord(form);
+  }
+  resetForm(form?: NgForm) {
+    if (form != null) form.resetForm();
+    this.service.formDataEmployee = {
+      employeeId: '',
+      departmentId: '',
+      fullName: '',
+      gender: true,
+      birthday: '',
+      address: '',
+      email: '',
+      phoneNumber: '',
+      password: '',
+      photo: '',
+      role: '',
+    };
+  }
+  insertRecord(form: NgForm) {
+    //console.log('ffffffff',form.value);
+    this.service.postEmployees(form.value).subscribe(
+      (res) => {
+        this.resetForm(form);
+        this.service.getEmployees();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  updateRecord(form: NgForm) {
+    //console.log('ffffffff',form.value);
+    this.service.putEmployees(form.value).subscribe(
+      (res) => {
+        this.resetForm(form);
+        this.service.getEmployees();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
   //import excel
   onFileChange(evt: any) {
@@ -59,7 +107,23 @@ export class ListEmployeeComponent implements OnInit {
     reader.readAsBinaryString(target.files[0]);
     console.log(this.dataExcel);
   }
+  //for chi tiết để sửa
+  //Object.assign() được sử dụng để sao chép các giá trị của tất cả thuộc tính có thể liệt kê từ một hoặc nhiều đối tượng nguồn đến một đối tượng đích. Nó sẽ trả về đối tượng đích đó.
+  formdetails(empl: Employee) {
+    this.service.formDataEmployee = Object.assign({}, empl);
+  }
+  updateform(empl: Employee) {
+    this.service.formDataEmployee = Object.assign({}, empl);
+  }
   updateValue(value: any) {
     this.subsl = value;
+  }
+  delete(id: string) {
+    if (confirm('Bạn có chắc chắn muốn xóa không')) {
+      this.service.deleteEmployees(id).subscribe((res) => {
+        this.service.getEmployees();
+        this.toastr.warning('Thông báo', 'Thao tác thành công');
+      });
+    }
   }
 }

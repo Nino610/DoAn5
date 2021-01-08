@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   userDetails;
   employee: any;
   tmp: string;
-  photo: any;
+  photo = 'b1.jpg';
   fullname: any;
   private userSubject: BehaviorSubject<User>;
   constructor(
@@ -92,7 +92,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       gender: this.userDetails.gender,
       email: this.userDetails.email,
       departmentId: this.userDetails.departmentId,
-      photo: this.photo.split('fakepath\\'),
+      photo: this.photo,
       password: this.userDetails.password,
       phoneNumber: this.userDetails.phoneNumber,
       birthday: this.userDetails.birthday,
@@ -101,6 +101,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.service.update(this.employee, tmp).subscribe(
       (res) => {
         alert('Update thành công');
+        console.log(this.photo);
       },
       (error) => {
         console.log(error);

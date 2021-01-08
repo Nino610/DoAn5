@@ -4,11 +4,11 @@
         background: #ffffff;
         padding-bottom: 12vh;
     }
-
+    
     .p-inputtext {
         font-size: 1rem !important;
     }
-
+    
     .p-datatable .p-datatable-thead>tr>th {
         text-align: left;
         padding: 1rem 1rem;
@@ -18,7 +18,7 @@
         background: #f8f9fa;
         transition: box-shadow 0.2s;
     }
-
+    
     .pi-angle-double-left:before {
         content: "\e92d";
         font-size: 15px;
@@ -71,35 +71,25 @@
         <br />
         <input style="width: 800px;margin-top: 10px;margin-left: 100px;" class="form-control" type="text" [(ngModel)]="searchText" name="search" autocomplete="off" placeholder="&#61442; Tìm kiếm">
         <br />
-        <div style="background: #f2f2f2;" class="card">
-            <table class="table table-hover ">
-                <thead style="text-align: center">
-                    <td><b>Mã môn học</b></td>
-                    <td><b>Mã lớp</b></td>
-                    <td><b>Tên môn học</b></td>
-                    <td><b>Số tín chỉ</b></td>
-                    <td><b>Tên giáo viên</b></td>
-                    <td><b>Kì học</b></td>
-                    <td><b>Năm học</b></td>
-                    <td><b>Khảo sát</b></td>
-                </thead>
-                <tbody>
-                    <tr style="text-align: center" *ngFor="let sub of subjects; index as i">
-                        <td>{{ sub.subjectId }}</td>
-                        <td>{{ sub.class.classId }}</td>
-                        <td>{{ sub.subject.subjectName }}</td>
-                        <td>{{ sub.subject.credit }}</td>
-                        <td>{{ sub.employee.fullName }}</td>
-                        <td>{{ sub.semester }}</td>
-                        <td>{{ sub.year }}</td>
-                        <td>
-                            <button style="margin-left: 5px;" type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalDetails"><i class="pi pi-eye"></i>Chi tiết</button>
-                            <button style="margin-left: 5px;" type="button" class="btn btn-primary"><i class="pi pi-pencil"></i>Khảo sát</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+
+        <form #form="ngForm" (submit)="onSubmit(form)" class="needs-validation" novalidate>
+            <div class="row">
+                <div class="col-sm-3"><select name="classId" #classId="ngModel" [(ngModel)]="this.thongke.classId">
+          <option *ngFor="let class of service.listClass" value=" ">{{ class.classId  }}</option>
+        </select></div>
+                <div class="col-sm-3">
+                    <select name="subjectId" #subjectId="ngModel" [(ngModel)]="this.thongke.subjectId">
+        <option *ngFor="let sub of service.listSubjects" value=" ">{{ sub.subjectId  }}</option>
+      </select>
+                </div>
+                <div class="col-sm-3">
+                    <select name="employeeId" #employeeId="ngModel" [(ngModel)]="this.thongke.employeeId">
+        <option *ngFor="let empl of service.listEmployees" value=" ">{{ empl.employeeId  }}</option>
+      </select>
+                </div>
+            </div>
+            <button [disabled]="form.invalid" class="btn btn-primary" type="submit">Xác nhận</button>
+        </form>
         <!-- END STATISTIC-->
     </div>
 </div>

@@ -7,7 +7,9 @@ import { first, map } from 'rxjs/operators';
 import { Employee } from './models/employees';
 import { NgForm } from '@angular/forms';
 import { Subject } from './models/subjects';
+import { Class } from './models/class';
 import { element } from 'protractor';
+import { Department } from './models/department';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -20,12 +22,15 @@ export class ProductService {
   private userSubject: BehaviorSubject<Employee>;
   public user: Observable<Employee>;
   formData: Subject;
+
   employeeId: string;
   formDataEmployee: Employee;
   status: string[] = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
   httpClient: any;
   listEmployees: Employee[];
   listSubjects: Subject[];
+  listClass: Class[];
+  listDepartment: Department[];
   readonly apiUrl = 'https://localhost:44399';
   readonly apiputuser = 'https://localhost:44399/api/Employees/sua/';
   constructor(public http: HttpClient, private fb: FormBuilder) {}
@@ -104,6 +109,15 @@ export class ProductService {
       this.apiUrl + '/api/Employees/sua/' + this.formDataEmployee.employeeId,
       formDataEmployee
     );
+  }
+  postEmployees(formDataEmployee: Employee) {
+    return this.http.post(
+      this.apiUrl + '/api/Employees/them',
+      formDataEmployee
+    );
+  }
+  deleteEmployees(id: string) {
+    return this.http.delete(this.apiUrl + '/api/Employees/xoa/' + id);
   }
   getEmployeeByID(id): Observable<any> {
     let cloneHeader: any = {};
@@ -225,5 +239,34 @@ export class ProductService {
       }
     });
     return isMatch;
+  }
+  //thong ke
+  getClass() {
+    this.http
+      .get(this.apiUrl + '/api/Class')
+      .toPromise()
+      .then((res) => (this.listClass = res as Class[]));
+  }
+  getDepartment() {
+    this.http
+      .get(this.apiUrl + '/api/Departments')
+      .toPromise()
+      .then((res) => (this.listDepartment = res as Department[]));
+  }
+  getThongKe(CLassid, Subjectid, EmployeeId): Observable<any> {
+    let cloneHeader: any = {};
+    cloneHeader['Content-Type'] = 'application/json';
+    const headerOptions = new HttpHeaders(cloneHeader);
+    return this.http
+      .get(
+        'http://localhost:44399/api/Plans/thongke/' +
+          CLassid +
+          Subjectid +
+          EmployeeId,
+        {
+          headers: headerOptions,
+        }
+      )
+      .pipe(first());
   }
 }

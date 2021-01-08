@@ -13,6 +13,7 @@ var SidebarComponent = /** @class */ (function () {
         this.router = router;
         this.AuthenticationService = AuthenticationService;
         this.service = service;
+        this.photo = 'b1.jpg';
     }
     SidebarComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -77,13 +78,14 @@ var SidebarComponent = /** @class */ (function () {
         this.userSubject.next(null);
     };
     SidebarComponent.prototype.changePhoto = function () {
+        var _this = this;
         var tmp = {
             employeeId: this.employee,
             fullName: this.userDetails.fullName,
             gender: this.userDetails.gender,
             email: this.userDetails.email,
             departmentId: this.userDetails.departmentId,
-            photo: this.photo.split('fakepath\\'),
+            photo: this.photo,
             password: this.userDetails.password,
             phoneNumber: this.userDetails.phoneNumber,
             birthday: this.userDetails.birthday,
@@ -91,6 +93,7 @@ var SidebarComponent = /** @class */ (function () {
         };
         this.service.update(this.employee, tmp).subscribe(function (res) {
             alert('Update thành công');
+            console.log(_this.photo);
         }, function (error) {
             console.log(error);
         });

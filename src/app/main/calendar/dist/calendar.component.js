@@ -13,6 +13,11 @@ var CalendarComponent = /** @class */ (function () {
     function CalendarComponent(service, toastr) {
         this.service = service;
         this.toastr = toastr;
+        this.thongke = {
+            subjectId: '',
+            classId: '',
+            employeeId: ''
+        };
         this.page = 1;
         this.subjects = null;
         this.foods = [
@@ -25,7 +30,10 @@ var CalendarComponent = /** @class */ (function () {
         ];
     }
     CalendarComponent.prototype.ngOnInit = function () {
+        this.service.getClass();
+        this.service.getEmployees();
         this.service.getSubjects();
+        this.service.getThongKe(this.CLassid, this.EmployeeId, this.Subjectid);
         // this.service.getAllSubject().subscribe((res) => {
         //   this.subjects = res;
         // });
@@ -75,12 +83,12 @@ var CalendarComponent = /** @class */ (function () {
         };
     };
     CalendarComponent.prototype.onSubmit = function (form) {
-        this.insertRecord(form);
-        this.toastr.success('Thông báo', 'Thao tác thành công');
-        if (form.value.subjectId == null)
-            this.insertRecord(form);
-        else
-            this.updateRecord(form);
+        // this.insertRecord(form);
+        // this.toastr.success('Thông báo', 'Thao tác thành công');
+        // if (form.value.subjectId == null) this.insertRecord(form);
+        // else this.updateRecord(form);
+        this.service.getThongKe(this.CLassid, this.Subjectid, this.EmployeeId);
+        console.log(this.thongke);
     };
     CalendarComponent.prototype.insertRecord = function (form) {
         var _this = this;

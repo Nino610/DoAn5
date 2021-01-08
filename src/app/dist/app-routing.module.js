@@ -16,12 +16,11 @@ var avatar_component_1 = require("./user/avatar/avatar.component");
 var register_component_1 = require("./user/register/register.component");
 var admin_component_1 = require("./admin/admin.component");
 var forbidden_component_1 = require("./forbidden/forbidden.component");
+var thongke_component_1 = require("./thongke/thongke.component");
 var routes = [
     {
         path: '',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./main/main.module'); }).then(function (m) { return m.MainModule; }); },
-        canActivate: [auth_guard_1.AuthGuard],
-        data: { permittedRoles: ['CanBo'] }
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./main/main.module'); }).then(function (m) { return m.MainModule; }); }
     },
     {
         path: 'login',
@@ -40,10 +39,16 @@ var routes = [
         component: forbidden_component_1.ForbiddenComponent
     },
     {
+        path: 'thongke',
+        component: thongke_component_1.ThongkeComponent,
+        canActivate: [auth_guard_1.AuthGuard],
+        data: { permittedRoles: ['2'] }
+    },
+    {
         path: 'admin',
         component: admin_component_1.AdminComponent,
         canActivate: [auth_guard_1.AuthGuard],
-        data: { permittedRoles: ['CanBo'] }
+        data: { permittedRoles: ['1'] }
     },
     {
         path: '**',

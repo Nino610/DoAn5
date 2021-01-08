@@ -7,7 +7,7 @@
         border-radius: 50%;
         cursor: pointer;
     }
-
+    
     .image:hover .uploads {
         display: block;
         cursor: pointer;
@@ -20,7 +20,7 @@
         </a>
         <h2 style="color: white; padding-left: 20px;">ECLASS</h2>
     </div>
-    <div style="position: absolute;" class=" menu-sidebar2__content js-scrollbar1 ">
+    <div style="position: absolute; width: 100%;" class=" menu-sidebar2__content js-scrollbar1 ">
         <div *ngIf="userDetails " class="account2 ">
             <div class="image img-cir img-120 ">
                 <img style="width:120px;height: 120px;" src="/assets/images/{{ userDetails.photo}} " alt="John Doe " />
@@ -31,6 +31,7 @@
                 </div>
             </div>
             <h4 class="name">{{ userDetails.fullName }}</h4>
+            <p-fileUpload label="Chọn" (change)="changePhoto()" [(ngModel)]="photo" name="photo" mode="basic" accept="image/*" maxFileSize="1000000"></p-fileUpload>
             <button (click)="logout() ">Đăng xuất</button>
             <!-- <button (click)="remove() ">Xóa tài khoản</button> -->
 
@@ -47,7 +48,6 @@
                         <i class="pi pi-list "></i>Danh sách học phần
                     </a>
                 </li>
-                <button (click)="logout() ">Đăng xuất</button>
                 <li class="active has-sub ">
                     <a style="text-decoration: none; " class="js-arrow " [routerLink]="[ '/listemployee']">
                         <i class="pi pi-calendar-minus "></i>Danh sách giáo viên
@@ -58,11 +58,7 @@
                         <i class="pi pi-image "></i>Lịch giảng dạy
                     </a>
                 </li>
-                <li class="active has-sub ">
-                    <a style="text-decoration: none; " class="js-arrow " href="# ">
-                        <i class="pi pi-print "></i>Kết xuất bảng điểm
-                    </a>
-                </li>
+
                 <li class="active has-sub ">
                     <a style="text-decoration: none; " class="js-arrow " style=" color: #045270; ">
                         <i class="pi pi-users "></i>TÀI KHOẢN
@@ -72,11 +68,6 @@
                 <li class="active has-sub ">
                     <a style="text-decoration: none; " class="js-arrow " [routerLink]="[ '/profile'] ">
                         <i class="pi pi-user-edit "></i>Thông tin cá nhân
-                    </a>
-                </li>
-                <li class="active has-sub ">
-                    <a style="text-decoration: none; " class="js-arrow " href="# ">
-                        <i class="pi pi-key "></i>Thay đổi mật khẩu
                     </a>
                 </li>
                 <li class="active has-sub ">

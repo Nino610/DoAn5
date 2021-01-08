@@ -8,6 +8,10 @@ import { RegisterComponent } from './user/register/register.component';
 import { AdminComponent } from './admin/admin.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ThongkeComponent } from './thongke/thongke.component';
+import { ListSubjectComponent } from './main/list-subject/list-subject.component';
+import { CalendarComponent } from './main/calendar/calendar.component';
+import { ListEmployeeComponent } from './main/list-employee/list-employee.component';
+import { ProfileUserComponent } from './main/profile-user/profile-user.component';
 const routes: Routes = [
   {
     path: '',
